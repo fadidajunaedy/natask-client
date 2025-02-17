@@ -1,207 +1,287 @@
-import moment from "moment"
-import { useEffect, useState } from "react"
-import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2"
-import Button from "../common/Button"
-import Avatar from "../common/Avatar"
-import { IoArrowDown } from "react-icons/io5"
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
+import Button from "../common/Button";
+import Avatar from "../common/Avatar";
+import { IoArrowDown } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../store/modalSlice";
 const Calendar = ({ data }) => {
-    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
-    const colStartClasses = [
-      "",
-      "col-start-2",
-      "col-start-3",
-      "col-start-4",
-      "col-start-5",
-      "col-start-6",
-      "col-start-7",
-  ]
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  const colStartClasses = [
+    "",
+    "col-start-2",
+    "col-start-3",
+    "col-start-4",
+    "col-start-5",
+    "col-start-6",
+    "col-start-7",
+  ];
 
-    const [firstDayOfMonth, setFirstDayOfMonth] = useState(moment().startOf('month'))
+  const [firstDayOfMonth, setFirstDayOfMonth] = useState(
+    moment().startOf("month")
+  );
 
-    const allDaysInMonth = ()=> {
-        let start = moment(firstDayOfMonth).startOf('week')
-        let end = moment(moment(firstDayOfMonth).endOf('month')).endOf('week')
-        var days = []
-        var day = start
-        while (day <= end) {
-            days.push(day.toDate())
-            day = day.clone().add(1, 'd')
+  const dispatch = useDispatch();
+
+  const allDaysInMonth = () => {
+    let start = moment(firstDayOfMonth).startOf("week");
+    let end = moment(moment(firstDayOfMonth).endOf("month")).endOf("week");
+    var days = [];
+    var day = start;
+    while (day <= end) {
+      days.push(day.toDate());
+      day = day.clone().add(1, "d");
+    }
+    return days;
+  };
+
+  // const openAllEventsDetail = (date, theme) => {
+  //     if(theme != "MORE")return 1
+  //     openDayDetail(moment(date).format("YYYY-MM-DD"))
+  // }
+
+  const isToday = (date) => {
+    return moment(date).isSame(moment(), "day");
+  };
+
+  const isDifferentMonth = (date) => {
+    return moment(date).month() != moment(firstDayOfMonth).month();
+  };
+
+  const getPrevMonth = () => {
+    const firstDayOfPrevMonth = moment(firstDayOfMonth)
+      .add(-1, "M")
+      .startOf("month");
+    setFirstDayOfMonth(firstDayOfPrevMonth);
+  };
+
+  const getCurrentMonth = () => {
+    const firstDayOfCurrMonth = moment().startOf("month");
+    setFirstDayOfMonth(firstDayOfCurrMonth);
+  };
+
+  const getNextMonth = () => {
+    const firstDayOfNextMonth = moment(firstDayOfMonth)
+      .add(1, "M")
+      .startOf("month");
+    setFirstDayOfMonth(firstDayOfNextMonth);
+  };
+
+  const getAllTaskByDate = (date) => {
+    return data.filter(
+      (task) =>
+        moment(date).isSame(moment(task.assignedAt), "day") ||
+        moment(date).isSame(moment(task.deadlineAt), "day")
+    );
+  };
+
+  const getTaskByDate = (date) => {
+    let filteredData = data.filter(
+      (task) =>
+        moment(date).isSame(moment(task.assignedAt), "day") ||
+        moment(date).isSame(moment(task.deadlineAt), "day")
+    );
+
+    if (filteredData.length > 2) {
+      filteredData = filteredData.slice(0, 2);
+      filteredData.push({ seeMore: true });
+    }
+
+    return filteredData;
+  };
+
+  const getAssignedEmployeePhotoByDate = (date) => {
+    const uniquePhotos = [];
+
+    let filteredData = data
+      .filter(
+        (task) =>
+          moment(date).isSame(moment(task.assignedAt), "day") ||
+          moment(date).isSame(moment(task.deadlineAt), "day")
+      )
+      .filter((task) => {
+        if (
+          task.employee.photo &&
+          !uniquePhotos.includes(task.employee.photo)
+        ) {
+          uniquePhotos.push(task.employee.photo);
+          return true;
         }
-        return days
+        return false;
+      });
+
+    let updatedData = filteredData.map((task) => task.employee.photo);
+    if (updatedData.length > 2) {
+      updatedData = updatedData.slice(0, 2);
+      updatedData.push({ seeMore: true, totalMore: filteredData.length - 2 });
     }
 
-    // const openAllEventsDetail = (date, theme) => {
-    //     if(theme != "MORE")return 1
-    //     openDayDetail(moment(date).format("YYYY-MM-DD"))
-    // }
+    return updatedData;
+  };
 
-    const isToday = (date) => {
-        return moment(date).isSame(moment(), 'day')
-    }
+  return (
+    <>
+      <div className="w-full bg-base-100 p-4 rounded-xl shadow-lg">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <Button
+            onClick={getCurrentMonth}
+            level="secondary"
+            className={`${
+              moment(firstDayOfMonth).month() !== moment().month()
+                ? "visible"
+                : "invisible"
+            }`}
+          >
+            Go to Current Month
+          </Button>
+          <div className="w-full md:w-auto flex flex-row items-center justify-between gap-2 sm:gap-4 md:mb-0">
+            <button className="btn btn-ghost" onClick={getPrevMonth}>
+              <HiChevronDoubleLeft className="w-5 h-5" />
+            </button>
+            <p className="font-semibold w-48 text-center">
+              {moment(firstDayOfMonth).format("MMMM yyyy").toString()}
+            </p>
+            <button className="btn btn-ghost" onClick={getNextMonth}>
+              <HiChevronDoubleRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        <div className="divider my-2" />
+        <div className="grid grid-cols-7 place-items-center">
+          {weekdays.map((day, key) => {
+            return (
+              <div className="text-xs capitalize" key={key}>
+                {day}
+              </div>
+            );
+          })}
+        </div>
 
-    const isDifferentMonth = (date) => {
-        return moment(date).month() != moment(firstDayOfMonth).month() 
-    }
-
-    const getPrevMonth = () => {
-        const firstDayOfPrevMonth = moment(firstDayOfMonth).add(-1, 'M').startOf('month')
-        setFirstDayOfMonth(firstDayOfPrevMonth)
-    }
-
-    const getCurrentMonth = () => {
-        const firstDayOfCurrMonth = moment().startOf('month')
-        setFirstDayOfMonth(firstDayOfCurrMonth)
-    }
-
-    const getNextMonth = () => {
-        const firstDayOfNextMonth = moment(firstDayOfMonth).add(1, 'M').startOf('month')
-        setFirstDayOfMonth(firstDayOfNextMonth)
-    }
-
-    const getAssignedDate = (date) => {
-        let filteredData = data.filter(task => moment(date).isSame(moment(task.assignedAt), 'day') || moment(date).isSame(moment(task.deadlineAt), 'day'))
-
-        if (filteredData.length > 2){
-            filteredData = filteredData.slice(0, 2)
-            filteredData.push({ seeMore : true })
-        }
-
-        return filteredData
-    }
-    
-    const getAssignedEmployeePhoto = (date) => {
-        const uniquePhotos = []
-
-        let filteredData = data
-        .filter(task => 
-            moment(date).isSame(moment(task.assignedAt), 'day') || 
-            moment(date).isSame(moment(task.deadlineAt), 'day')    
-        )
-        .filter(task => {
-            if (task.employee.photo && !uniquePhotos.includes(task.employee.photo)) {
-                uniquePhotos.push(task.employee.photo)
-                return true
-            }
-            return false
-        })
-
-        let updatedData = filteredData.map(task => task.employee.photo)
-        if (updatedData.length > 2){
-            updatedData = updatedData.slice(0, 2)
-            updatedData.push({ seeMore : true, totalMore: filteredData.length - 2})
-        }
-
-        return updatedData
-    }
-
-    return (
-        <>
-            <div className="w-full bg-base-100 p-4 rounded-lg shadow-md">
-                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <Button 
-                        onClick={getCurrentMonth}
-                        className={`${moment(firstDayOfMonth).month() !== moment().month() ? "visible" : "invisible"}`}
-                    >
-                        Go to Current Month
-                    </Button>
-                    <div className="w-full md:w-auto flex flex-row items-center justify-between gap-2 sm:gap-4 md:mb-0">
-                        
-                        <button className="btn btn-ghost"  onClick={getPrevMonth}>
-                            <HiChevronDoubleLeft className="w-5 h-5"/>
-                        </button>
-                        <p className="font-semibold w-48 text-center">
-                            {moment(firstDayOfMonth).format("MMMM yyyy").toString()}
-                        </p>
-                        <button className="btn btn-ghost" onClick={getNextMonth}>
-                            <HiChevronDoubleRight className="w-5 h-5"/>
-                        </button>
-                    </div>
-                </div>
-                <div className="divider my-2" />
-                <div className="grid grid-cols-7 place-items-center">
-                {weekdays.map((day, key) => {
-                    return (
-                    <div  className="text-xs capitalize" key={key}>
-                        {day}
-                    </div>
+        <div className="static grid grid-cols-7 mt-1 border-collapse  place-items-center">
+          {allDaysInMonth().map((day, idx) => {
+            return (
+              <div
+                key={idx}
+                className={
+                  colStartClasses[moment(day).day().toString()] +
+                  "relative border border-base-200 w-full h-[12rem] lg:h-auto lg:aspect-square flex flex-col gap-1"
+                }
+              >
+                <label
+                  className={`group flex items-center justify-center h-8 w-8 text-center hover:bg-base-200 hover:text-neutral rounded-full mx-1 mt-1 text-sm cursor-pointer prose-none ${
+                    isToday(day) && "bg-primary text-base-100"
+                  } ${isDifferentMonth(day) && "text-slate-400"}`}
+                  onClick={() =>
+                    dispatch(
+                      openModal({
+                        key: "TASK",
+                        type: "LIST",
+                        data: getAllTaskByDate(day),
+                      })
                     )
-                })}
-                </div>
+                  }
+                >
+                  <span
+                    className={`${
+                      isToday(day) &&
+                      "flex items-center justify-center h-8 w-8 text-center rounded-full  text-xl hover:bg-base-300 animate-wiggle"
+                    }`}
+                  >
+                    {moment(day).format("D")}
+                  </span>
+                </label>
 
-                <div className="static grid grid-cols-7 mt-1 border-collapse  place-items-center">
-                {allDaysInMonth().map((day, idx) => {
+                {/* Assigned Task Title */}
+                {getTaskByDate(day).map((task, index) => {
+                  const isSeeMore = task.seeMore === true;
+                  const statusColor = `text-base-100 font-semibold ${
+                    task.priority === "high"
+                      ? "bg-error"
+                      : task.priority === "medium"
+                      ? "bg-warning"
+                      : "bg-info"
+                  }`;
+                  const className = `text-xs px-2 truncate cursor-pointer ${
+                    isSeeMore
+                      ? "bg-secondary text-base-100 font-semibold"
+                      : statusColor
+                  }`;
+                  if (isSeeMore) {
                     return (
-                    <div key={idx} className={colStartClasses[moment(day).day().toString()] + "relative border border-base-200 w-full h-[12rem] lg:h-auto lg:aspect-square flex flex-col"}>
-                        <label
-                        className={`group flex items-center justify-center h-8 w-8 text-center hover:bg-base-200 hover:text-neutral rounded-full mx-1 mt-1 text-sm cursor-pointer prose-none ${isToday(day) && "bg-primary text-base-100"} ${isDifferentMonth(day) && "text-slate-400"}`} 
-                        onClick={() => console.log("test sd")}>
-                            <span className={`${isToday(day) && "flex items-center justify-center h-8 w-8 text-center rounded-full  text-xl hover:bg-base-300 animate-wiggle"}`}>{moment(day).format("D")}</span>
-                        </label>
+                      <span
+                        key={index}
+                        className={className}
+                        onClick={() =>
+                          dispatch(
+                            openModal({
+                              key: "TASK",
+                              type: "LIST",
+                              data: getAllTaskByDate(day),
+                            })
+                          )
+                        }
+                      >
+                        See More...
+                      </span>
+                    );
+                  } else {
+                    return (
+                      <>
+                        {moment(day).isSame(moment(task.deadlineAt), "day") && (
+                          <span className="text-[0.5rem] flex items-center px-2 mb-0">
+                            Deadline <IoArrowDown />
+                          </span>
+                        )}
+                        <Link
+                          key={index}
+                          to={`/dashboard/task/${task._id}`}
+                          className={className}
+                          onClick={() => console.log("test")}
+                        >
+                          {task.title}
+                        </Link>
+                      </>
+                    );
+                  }
+                })}
 
-                        {/* Assigned Task Title */}
-                        {getAssignedDate(day).map((task, index) => {
-                            const isSeeMore = task.seeMore === true
-                            const statusColor = `text-base-100 font-semibold ${task.priority === "high" ? "bg-error" : task.priority === "medium" ? "bg-warning" : "bg-info"}`
-                            const className = `text-xs px-2 truncate cursor-pointer ${isSeeMore ? "bg-secondary text-base-100 font-semibold" : statusColor}`
-                            if (isSeeMore) {
-                                return (
-                                    <span 
-                                        key={index} 
-                                        className={className}
-                                        onClick={() => console.log("test")}
-                                    >
-                                        See More...
-                                    </span>
-                                )
-                            } else {
-                                return (
-                                    <>
-                                    {moment(day).isSame(moment(task.deadlineAt), 'day') && 
-                                            <span className="text-[0.5rem] flex items-center px-2 mb-0">Deadline <IoArrowDown /></span>
-                                        }
-                                    <span 
-                                        key={index} 
-                                        className={className}
-                                        onClick={() => console.log("test")}
-                                        >
-                                        {task.title}
-                                    </span>
-                                    </>
-                                )
-                            }
-                        })} 
+                {/* Assigned Employee Photo */}
+                <div className="avatar-group -space-x-4 lg:-space-x-2 mt-auto">
+                  {getAssignedEmployeePhotoByDate(day).map((photo, index) => {
+                    const isSeeMore = photo?.seeMore === true;
 
-                        {/* Assigned Employee Photo */}
-                        <div className="avatar-group -space-x-4 lg:-space-x-2 mt-auto">
-                        {getAssignedEmployeePhoto(day).map((photo, index) => {
-                            const isSeeMore = photo?.seeMore === true
-                            console.log(photo)
-                            if (isSeeMore) {
-                                return (
-                                    <div key={index} className="avatar avatar-placeholder">
-                                        <div className="w-6 bg-secondary text-base-100 text-xs">
-                                            {photo?.totalMore}+
-                                        </div>
-                                    </div>
-                                )
-                            } else {
-                                return (
-                                    <div key={index} className="avatar">
-                                        <div className="w-6">
-                                            <img src={photo} />
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        })} 
+                    if (isSeeMore) {
+                      return (
+                        <div key={index} className="avatar avatar-placeholder">
+                          <div className="w-6 bg-secondary text-base-100 text-xs">
+                            {photo?.totalMore}+
+                          </div>
                         </div>
-                    </div>
-                    )
-                })}
+                      );
+                    } else {
+                      return (
+                        <div key={index} className="avatar">
+                          <div className="w-6">
+                            <img
+                              src={`${
+                                import.meta.env.VITE_API_URL
+                              }/files/employee/photo/${photo}`}
+                            />
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
                 </div>
-            </div>
-        </>
-    )
-}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default Calendar
+export default Calendar;

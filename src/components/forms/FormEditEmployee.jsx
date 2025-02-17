@@ -49,13 +49,11 @@ const FormEditEmployee = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     setErrors({});
     try {
       const { _id, _v, createdAt, updatedAt, ...updatedData } = state;
-
-      employeeSchema.parse(state);
+      employeeSchema.parse(updatedData);
       const response = await updateEmployee(_id, updatedData);
       if (response.success) {
         eventEmitter.emit("employeeChanged");
@@ -96,7 +94,9 @@ const FormEditEmployee = () => {
             image={
               state.photo instanceof File
                 ? URL.createObjectURL(state.photo)
-                : state.photo
+                : `${import.meta.env.VITE_API_URL}/files/employee/photo/${
+                    state.photo
+                  }`
             }
           />
         )}

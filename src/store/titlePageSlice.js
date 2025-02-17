@@ -1,27 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    type: null,
-    message: null,
-    isShow: false
-}
+  title: null,
+};
 
-export const modalSlice = createSlice({
-    name: "toast",
-    initialState,
-    reducers: {
-        showToast: (state, action) => {
-            state.type = action.payload.type
-            state.message = action.payload.message,
-            state.isShow = true
-        },
-        closeToast: (state, action) => {
-            state.type = null
-            state.message = null,
-            state.isShow = false
-        },
-    }
-})
+export const titlePageSlice = createSlice({
+  name: "title",
+  initialState,
+  reducers: {
+    setTitle: (state, action) => {
+      state.title = action.payload.title;
+    },
+    deleteTitle: (state, action) => {
+      state.title = null;
+    },
+  },
+});
 
-export const { showToast, closeToast } = modalSlice.actions  
-export default modalSlice.reducer
+export const { setTitle, deleteTitle } = titlePageSlice.actions;
+export default titlePageSlice.reducer;

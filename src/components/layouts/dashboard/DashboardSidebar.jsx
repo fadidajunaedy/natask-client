@@ -7,11 +7,12 @@ import { showSidebar } from "../../../store/sidebarSlice";
 import Avatar from "../../common/Avatar";
 import NataskLogo from "../../../assets/images/natask-logo.png";
 import dashboardSidebarRoutes from "../../../routes/dashboardSidebarRoutes";
+import Heading from "../../common/Heading";
 
 const DashboardSidebar = () => {
-  const dispatch = useDispatch();
   const { isShow } = useSelector((state) => state.sidebar);
   const { data } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   return (
     <aside
@@ -19,10 +20,12 @@ const DashboardSidebar = () => {
         isShow ? "translate-x-[0%]" : "translate-x-[-100%]"
       }  lg:translate-x-[0%] lg:fixed lg:top-0 lg:self-start bg-base-100 color-base-100 w-full lg:w-[20em] h-screen flex flex-col shadow-lg`}
     >
-      <div className="w-full h-[10vh] flex justify-between items-center p-4">
+      <div className="w-full h-[12vh] flex justify-between items-center p-4">
         <div className="flex items-center gap-2">
-          <img src={NataskLogo} alt="Natask Logo" className="h-6" />
-          <span className="text-3xl font-bold">Natask</span>
+          <img src={NataskLogo} alt="Natask Logo" className="h-[1.6em]" />
+          <Heading level="h1" size="3xl">
+            Natask
+          </Heading>
         </div>
         <button
           type="button"
@@ -48,11 +51,12 @@ const DashboardSidebar = () => {
         ))}
         <NavLink
           to="/dashboard/profile"
+          onClick={() => dispatch(showSidebar({ isShow: false }))}
           className="bg-base-100 flex items-center gap-2 rounded-xl shadow-lg shadow-base-200 p-4 border border-base-200 hover:bg-secondary hover:text-base-100 mt-auto"
         >
           <Avatar
             size="3em"
-            src={`${import.meta.env.VITE_API_URL}/files/employee/photo/${
+            src={`${import.meta.env.VITE_API_URL}/files/user/photo/${
               data.photo
             }`}
             alt={data.name}

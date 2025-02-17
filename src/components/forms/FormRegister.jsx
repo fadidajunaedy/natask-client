@@ -1,7 +1,9 @@
 import { z } from "zod";
 import { useState } from "react";
+import { registerUser } from "../../services/authService";
 import Input from "../common/Input";
 import Button from "../common/Button";
+import useToast from "../../hooks/useToast";
 
 const registerSchema = z
   .object({
@@ -17,10 +19,12 @@ const registerSchema = z
     message: "Password and confirmation password do not match",
   });
 
-const RegisterForm = ({ onSubmit }) => {
+const FormRegister = () => {
   const [state, setState] = useState({});
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const showToast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,14 +33,29 @@ const RegisterForm = ({ onSubmit }) => {
 
     try {
       registerSchema.parse(state);
-      onSubmit(state);
+      const response = await registerUser(state);
+      if (response.success) {
+        setState({
+          name: "",
+          email: "",
+          password: "",
+          passwordConfirmation: "",
+        });
+        showToast("SUCCESS", response.message);
+      } else {
+        console.error(response.message);
+      }
     } catch (error) {
       if (error instanceof z.ZodError) {
         const formErrors = error.errors.reduce((acc, curr) => {
           acc[curr.path[0]] = curr.message;
           return acc;
         }, {});
+        showToast("ERROR", "Please check your form again");
         setErrors(formErrors);
+      } else {
+        console.log(error);
+        showToast("ERROR", error.message);
       }
     } finally {
       setLoading(false);
@@ -102,4 +121,4 @@ const RegisterForm = ({ onSubmit }) => {
   );
 };
 
-export default RegisterForm;
+export default FormRegister;

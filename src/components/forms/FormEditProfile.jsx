@@ -1,18 +1,20 @@
 import { z } from "zod";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../store/modalSlice";
-import { updateUser } from "../../services/authService";
+import { getUser, updateUser } from "../../services/authService";
 import Input from "../common/Input";
 import FileInput from "../common/FileInput";
 import ImagePreview from "../common/ImagePreview";
 import Button from "../common/Button";
 import useToast from "../../hooks/useToast";
 import eventEmitter from "../../utils/eventEmitter";
+import { storeDataUser, updateDataUser } from "../../store/authSlice";
 
 const profileSchema = z.object({
   photo: z
     .union([z.instanceof(File), z.string()])
+    .nullable()
     .optional()
     .refine(
       (photo) => {
@@ -36,7 +38,12 @@ const profileSchema = z.object({
 });
 
 const FormEditProfile = () => {
-  const [state, setState] = useState({});
+  const { data } = useSelector((state) => state.auth);
+  const [state, setState] = useState({
+    name: data.name,
+    email: data.email,
+    photo: data.photo || null,
+  });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -45,19 +52,18 @@ const FormEditProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     setErrors({});
 
     try {
       profileSchema.parse(state);
-
       const response = await updateUser(state);
-
       if (response.success) {
-        eventEmitter.emit("employeeChanged");
+        const responseUpdate = await getUser();
+        if (responseUpdate.success) {
+          dispatch(storeDataUser({ data: responseUpdate.data }));
+        }
         showToast("SUCCESS", response.message);
-        dispatch(closeModal());
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -93,10 +99,19 @@ const FormEditProfile = () => {
             image={
               state.photo instanceof File
                 ? URL.createObjectURL(state.photo)
-                : state.photo
+                : `${import.meta.env.VITE_API_URL}/files/user/photo/${
+                    state.photo
+                  }`
             }
           />
         )}
+        <Input
+          type="email"
+          name="email"
+          label="Email"
+          value={state.email}
+          disabled
+        />
         <Input
           label="Name"
           name="name"
@@ -107,19 +122,13 @@ const FormEditProfile = () => {
           loading={loading}
           error={errors.name}
         />
-        <Input
-          type="email"
-          name="email"
-          label="Email"
-          value={state.email}
-          onChange={(e) =>
-            setState((prev) => ({ ...prev, email: e.target.value }))
-          }
+        <Button
+          level="primary"
+          type="submit"
           loading={loading}
-          error={errors.email}
-        />
-        <Button level="primary" type="submit" loading={loading}>
-          Submit
+          disabled={loading}
+        >
+          {loading ? "Saving Changes..." : "Save Changes"}
         </Button>
       </form>
     </>

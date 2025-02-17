@@ -9,9 +9,7 @@ export const registerUser = async (request) => {
     );
     return response.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to get All Employee"
-    );
+    throw new Error(error.response?.data?.message || "Failed to Register");
   }
 };
 
@@ -23,9 +21,7 @@ export const loginUser = async (request) => {
     );
     return response.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to get All Employee"
-    );
+    throw new Error(error.response?.data?.message || "Failed to Login");
   }
 };
 
@@ -38,7 +34,7 @@ export const forgotPasswordUser = async (request) => {
     return response.data;
   } catch (error) {
     throw new Error(
-      error.response?.data?.message || "Failed to post Forgot Password"
+      error.response?.data?.message || "Failed to request Forgot Password"
     );
   }
 };
@@ -52,7 +48,7 @@ export const resetPasswordUser = async (token, request) => {
     return response.data;
   } catch (error) {
     throw new Error(
-      error.response?.data?.message || "Failed to get All Employee"
+      error.response?.data?.message || "Failed to Reset Password"
     );
   }
 };
@@ -62,9 +58,7 @@ export const getUser = async () => {
     const response = await api.get(`${import.meta.env.VITE_API_URL}/api/users`);
     return response.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to get All Employee"
-    );
+    throw new Error(error.response?.data?.message || "Failed to get data User");
   }
 };
 
@@ -82,7 +76,7 @@ export const updateUser = async (request) => {
     return response.data;
   } catch (error) {
     throw new Error(
-      error.response?.data?.message || "Failed to get All Employee"
+      error.response?.data?.message || "Failed to update data User"
     );
   }
 };
@@ -96,7 +90,7 @@ export const changePasswordUser = async (request) => {
     return response.data;
   } catch (error) {
     throw new Error(
-      error.response?.data?.message || "Failed to get All Employee"
+      error.response?.data?.message || "Failed to change Password"
     );
   }
 };

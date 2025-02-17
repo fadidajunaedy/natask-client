@@ -1,24 +1,17 @@
-import { useSelector } from "react-redux";
-import useValidImage from "../../../hooks/useValidImage";
-import { useState } from "react";
-import Input from "../../common/Input";
+import { useEffect } from "react";
 import Heading from "../../common/Heading";
-import Button from "../../common/Button";
-import { FiEdit3 } from "react-icons/fi";
 import FormChangePassword from "../../forms/FormChangePassword";
-import FileInput from "../../common/FileInput";
-import ImagePreview from "../../common/ImagePreview";
+import { useDispatch } from "react-redux";
+import { getUser } from "../../../services/authService";
 import FormEditProfile from "../../forms/FormEditProfile";
+import { setTitle } from "../../../store/titlePageSlice";
 
 const Profile = () => {
-  const { data } = useSelector((state) => state.auth);
-  const [state, setState] = useState({
-    name: data.name,
-    email: data.email,
-    photo: data.photo || null,
-  });
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setTitle({ title: "Profile" }));
+  }, []);
 
   return (
     <>
@@ -28,7 +21,7 @@ const Profile = () => {
         </div>
         <div>
           <div className="bg-base-100 border border-base-200 rounded-xl shadow-lg p-4">
-            <Heading level="h2" size="2xl" align="center">
+            <Heading level="h2" size="2xl" className="mb-4">
               Change Password
             </Heading>
             <FormChangePassword />

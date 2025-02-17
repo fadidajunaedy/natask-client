@@ -1,39 +1,43 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { closeToast } from "../../store/toastSlice"
-import classNames from "classnames"
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { closeToast } from "../../store/toastSlice";
+import classNames from "classnames";
 
 const Toast = () => {
-    const { type, message, isShow } = useSelector(state => state.toast)
-    const dispatch = useDispatch()
+  const { type, message, isShow } = useSelector((state) => state.toast);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (isShow) {
-            const timer = setTimeout(() => {
-                dispatch(closeToast())
-            }, 3000)
+  useEffect(() => {
+    if (isShow) {
+      const timer = setTimeout(() => {
+        dispatch(closeToast());
+      }, 3000);
 
-            return () => clearTimeout(timer)
-        }
-    }, [isShow, dispatch])
+      return () => clearTimeout(timer);
+    }
+  }, [isShow, dispatch]);
 
-    if (!isShow) return null
-    
-     const toastClassNames = classNames(
-            "fixed z-[99] bottom-4 right-4 flex justify-between items-center rounded-lg p-4 text-base-100 font-semibold",
-            {
-                "bg-info": type === "INFO",
-                "bg-success": type === "SUCCESS",
-                "bg-warning": type === "WARNING",
-                "bg-error": type === "ERROR"
-            }
-        )
+  // if (!isShow) return null;
 
-    return (
-        <div className={toastClassNames}>
-            <p>{message}</p>
-        </div>
-    )
-}
+  const toastClassNames = classNames(
+    "fixed z-[99] bottom-4 right-4 flex justify-between items-center rounded-lg p-4 text-base-100 font-semibold transition-transform",
+    {
+      "bg-info": type === "INFO",
+      "bg-success": type === "SUCCESS",
+      "bg-warning": type === "WARNING",
+      "bg-error": type === "ERROR",
+    }
+  );
 
-export default Toast
+  return (
+    <div
+      className={`${toastClassNames} ${
+        isShow ? "translate-x-[0%]" : "translate-x-[150%]"
+      }`}
+    >
+      <p>{message}</p>
+    </div>
+  );
+};
+
+export default Toast;
