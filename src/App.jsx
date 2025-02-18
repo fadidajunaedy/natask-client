@@ -20,7 +20,7 @@ const App = () => {
       <Router basename="/">
         <ScrollToTop />
         <Toast />
-        <Routes>
+        <Routes >
           <Route path="/auth/*" element={<AuthLayout />} />
           <Route
             path="/dashboard/*"

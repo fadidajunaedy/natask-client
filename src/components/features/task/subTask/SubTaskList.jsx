@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { getAllSubtask } from "../../../../services/subTaskService";
 
 import SubTaskItem from "./SubTaskItem";
-import { getAllSubtask } from "../../../../services/subTaskService";
 import eventEmitter from "../../../../utils/eventEmitter";
 import useToast from "../../../../hooks/useToast";
 
