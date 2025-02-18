@@ -264,11 +264,7 @@ const Calendar = ({ data }) => {
                       return (
                         <div key={index} className="avatar">
                           <div className="w-6">
-                            <img
-                              src={`${
-                                import.meta.env.VITE_API_URL
-                              }/files/employee/photo/${photo}`}
-                            />
+                            <img src={photo} />
                           </div>
                         </div>
                       );

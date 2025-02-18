@@ -99,9 +99,7 @@ const FormEditProfile = () => {
             image={
               state.photo instanceof File
                 ? URL.createObjectURL(state.photo)
-                : `${import.meta.env.VITE_API_URL}/files/user/photo/${
-                    state.photo
-                  }`
+                : state.photo
             }
           />
         )}

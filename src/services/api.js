@@ -1,10 +1,10 @@
 import axios from "axios";
-import { store, persistor } from "../store";
+import { store } from "../store";
 import { deleteDataUser } from "../store/authSlice";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  timeout: 10000, // 10 Second
+  timeout: 20000, // 10 Second
   headers: {
     "Content-Type": "application/json",
   },

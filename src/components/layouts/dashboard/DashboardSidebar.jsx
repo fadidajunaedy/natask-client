@@ -54,13 +54,7 @@ const DashboardSidebar = () => {
           onClick={() => dispatch(showSidebar({ isShow: false }))}
           className="bg-base-100 flex items-center gap-2 rounded-xl shadow-lg shadow-base-200 p-4 border border-base-200 hover:bg-secondary hover:text-base-100 mt-auto"
         >
-          <Avatar
-            size="3em"
-            src={`${import.meta.env.VITE_API_URL}/files/user/photo/${
-              data.photo
-            }`}
-            alt={data.name}
-          />
+          <Avatar size="3em" src={data.photo} alt={data.name} />
           <div className="break-words">
             <p className="text-md font-bold">{data.name}</p>
             <p className="text-sm font-normal">{data.email}</p>

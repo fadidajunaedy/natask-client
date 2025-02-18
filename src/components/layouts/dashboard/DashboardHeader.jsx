@@ -44,7 +44,6 @@ const DashboardHeader = () => {
         </Heading>
       </div>
       <Button
-        size="lg"
         outline
         onClick={() => dispatch(openModal({ key: "AUTH", type: "LOGOUT" }))}
         className="hover:bg-secondary active:bg-primary"
