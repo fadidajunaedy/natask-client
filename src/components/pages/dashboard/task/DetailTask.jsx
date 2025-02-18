@@ -85,9 +85,7 @@ const DetailTask = () => {
               <div className="flex items-center gap-2">
                 <Avatar
                   size="2em"
-                  src={`${import.meta.env.VITE_API_URL}/files/employee/photo/${
-                    data.employee.photo
-                  }`}
+                  src={data.employee.photo}
                   alt={data.employee.name}
                 />
                 <span className="font-semibold">{data.employee.name}</span>

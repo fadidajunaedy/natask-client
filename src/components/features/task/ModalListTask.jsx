@@ -28,9 +28,7 @@ const ModalListTask = () => {
               <div className="flex items-center gap-2">
                 <Avatar
                   size="1.5em"
-                  src={`${import.meta.env.VITE_API_URL}/files/employee/photo/${
-                    task?.employee?.photo
-                  }`}
+                  src={task?.employee?.photo}
                   alt={task.employee.name}
                 />
                 <span className="text-sm font-semibold">

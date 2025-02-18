@@ -12,12 +12,7 @@ const CardEmployee = ({ employee }) => {
   return (
     <>
       <article className="w-full flex items-center gap-4 break-word bg-base-100 border border-base-200 shadow-lg rounded-xl p-4">
-        <Avatar
-          src={`${import.meta.env.VITE_API_URL}/files/employee/photo/${
-            employee.photo
-          }`}
-          alt={employee.name}
-        />
+        <Avatar src={employee.photo} alt={employee.name} />
         <div>
           <Heading level="h3" size="xl">
             {employee.name}

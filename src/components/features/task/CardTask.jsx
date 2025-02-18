@@ -35,14 +35,9 @@ const CardTask = ({ task }) => {
         }
       }
     };
-
     handleGetSubtask();
-    const ws = new WebSocket("ws://localhost:3000");
-    ws.onmessage = (event) => {
-      console.log(event);
-    };
-
     eventEmitter.on("subtaskChanged", handleGetSubtask);
+
     return () => {
       controller.abort();
       eventEmitter.off("subtaskChanged", handleGetSubtask);
@@ -65,9 +60,7 @@ const CardTask = ({ task }) => {
         <div className="flex items-center gap-2">
           <Avatar
             size="2em"
-            src={`${import.meta.env.VITE_API_URL}/files/employee/photo/${
-              task.employee.photo
-            }`}
+            src={task.employee.photo}
             alt={task.employee.name}
           />
           <span className="font-semibold">{task.employee.name}</span>
