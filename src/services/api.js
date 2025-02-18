@@ -24,16 +24,24 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (
-      error.response &&
-      (error.response.data.message === "Token expired" ||
-        error.response.data.message === "Invalid token")
-    ) {
-      window.location.href = "/auth/login";
-      console.error("Unauthorized. Logging out...");
-      store.dispatch(deleteDataUser());
-      persistor.purge();
+    if (!error.response) {
+      console.error("Network error or CORS issue:", error);
+      return Promise.reject({ message: "Network error or CORS issue" });
     }
+
+    const errorMessage = error.response.data?.message || "Unknown error";
+
+    if (errorMessage === "Token expired" || errorMessage === "Invalid token") {
+      console.warn("Token expired, logging out...");
+
+      store.dispatch(deleteDataUser());
+      localStorage.removeItem("persist:auth");
+
+      setTimeout(() => {
+        window.location.href = "/auth/login";
+      }, 1000);
+    }
+
     return Promise.reject(error);
   }
 );
