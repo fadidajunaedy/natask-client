@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllSubtask } from "../../../../services/subTaskService";
+import { getAllSubtask } from "../../../../services/subtaskService";
 
 import SubTaskItem from "./SubTaskItem";
 import eventEmitter from "../../../../utils/eventEmitter";
