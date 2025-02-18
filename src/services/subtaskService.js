@@ -1,9 +1,8 @@
-import axios from "axios";
 import api from "./api";
 
 export const getSubtask = async (_id, signal) => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_URL}/api/subtasks/${_id}`,
       { signal }
     );
@@ -17,7 +16,7 @@ export const getSubtask = async (_id, signal) => {
 
 export const getAllSubtask = async (queries, signal) => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_URL}/api/subtasks`,
       {
         params: queries,
@@ -48,7 +47,7 @@ export const createSubtask = async (request) => {
 
 export const updateSubtask = async (_id, request) => {
   try {
-    const response = await axios.patch(
+    const response = await api.patch(
       `${import.meta.env.VITE_API_URL}/api/subtasks/${_id}`,
       request
     );
