@@ -6,10 +6,10 @@ import {
   TbEditCircle,
   TbCircleCheck,
 } from "react-icons/tb";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FiTrash } from "react-icons/fi";
 import { closeModal, openModal } from "../../../../store/modalSlice";
-import { updateSubtask } from "../../../../services/subTaskService";
+import { updateSubtask } from "../../../../services/subtaskService";
 import useToast from "../../../../hooks/useToast";
 import eventEmitter from "../../../../utils/eventEmitter";
 

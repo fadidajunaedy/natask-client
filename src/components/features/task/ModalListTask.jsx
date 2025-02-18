@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import Heading from "../../common/Heading";
-import CardTask from "./CardTask";
 import Avatar from "../../common/Avatar";
 import moment from "moment";
 import Badge from "../../common/Bagde";

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { openModal } from "../../../store/modalSlice";
 import { IoArrowForward } from "react-icons/io5";
 import { FiTrash } from "react-icons/fi";
-import { getAllSubtask } from "../../../services/subTaskService";
+import { getAllSubtask } from "../../../services/subtaskService";
 
 import moment from "moment";
 import Button from "../../common/Button";
