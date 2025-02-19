@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getAllSubtask } from "../../../../services/subtaskService";
 
 import SubTaskItem from "./SubTaskItem";
 import eventEmitter from "../../../../utils/eventEmitter";
 import useToast from "../../../../hooks/useToast";
+import supabase from "../../../../utils/supabaseClient";
 
 const SubTaskList = ({ taskId, viewMode = "DASHBOARD" }) => {
   const [data, setData] = useState([]);
@@ -25,7 +26,7 @@ const SubTaskList = ({ taskId, viewMode = "DASHBOARD" }) => {
         if (error.name === "AbortError") {
           console.log("Fetch aborted");
         } else {
-          showToast("ERROR", error.response.data.message);
+          // showToast("ERROR", error.response.data.message);
         }
       } finally {
         setLoading(false);
@@ -38,6 +39,37 @@ const SubTaskList = ({ taskId, viewMode = "DASHBOARD" }) => {
       eventEmitter.off("subtaskChanged", handleGetSubtask);
     };
   }, [taskId]);
+
+  const subtaskIds = useMemo(() => {
+    return data.map((subtask) => subtask._id);
+  }, [data]);
+
+  useEffect(() => {
+    if (!subtaskIds.length) return;
+
+    const channels = subtaskIds.map((_id) => {
+      const channel = supabase.channel(`subtask-${_id}`);
+
+      channel.on("broadcast", { event: "subtaskUpdated" }, (message) => {
+        const newData = message.payload;
+        const index = data.findIndex((subtask) => subtask._id === newData._id);
+        if (index !== -1) {
+          const currentData = [...data];
+          currentData[index] = newData;
+          setData(currentData);
+        } else {
+          console.warn("Subtask not found, no data update");
+        }
+      });
+
+      channel.subscribe();
+      return channel;
+    });
+
+    return () => {
+      channels.forEach((channel) => supabase.removeChannel(channel));
+    };
+  }, [data, subtaskIds]);
 
   return (
     <ul>
