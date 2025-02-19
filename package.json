@@ -12,6 +12,7 @@
   "dependencies": {
     "@amcharts/amcharts5": "^5.11.0",
     "@reduxjs/toolkit": "^2.5.1",
+    "@supabase/supabase-js": "^2.48.1",
     "@tailwindcss/vite": "^4.0.1",
     "aos": "^2.3.4",
     "axios": "^1.7.9",
