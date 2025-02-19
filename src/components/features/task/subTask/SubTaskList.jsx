@@ -62,6 +62,22 @@ const SubTaskList = ({ taskId, viewMode = "DASHBOARD" }) => {
         }
       });
 
+      channel.on("broadcast", { event: "subtaskDeleted" }, (message) => {
+        const dataToDelete = message.payload;
+        const isDataExists = data.find(
+          (subtask) => subtask._id === dataToDelete._id
+        );
+        if (isDataExists) {
+          const currentData = [...data];
+          const filteredData = currentData.filter(
+            (subtask) => subtask._id !== dataToDelete._id
+          );
+          setData(filteredData);
+        } else {
+          console.warn("Subtask not found, no data deleted");
+        }
+      });
+
       channel.subscribe();
       return channel;
     });
