@@ -40,18 +40,10 @@ const FormCreateEmployee = () => {
 
     try {
       employeeSchema.parse(state);
-
-      const formData = new FormData();
-      state.photo && formData.append("photo", state.photo);
-      formData.append("name", state.name);
-      formData.append("email", state.email);
-
-      const response = await createEmployee(formData);
-      console.log(formData);
-      console.log(response);
-      if (response.success) {
+      const response = await createEmployee(state);
+      if (response.status === 200) {
         eventEmitter.emit("employeeChanged");
-        showToast("SUCCESS", response.message);
+        showToast("SUCCESS", response.data.message);
         dispatch(closeModal());
       }
     } catch (error) {
@@ -63,7 +55,7 @@ const FormCreateEmployee = () => {
         setErrors(formErrors);
       } else {
         console.log(error);
-        showToast("ERROR", error.message);
+        showToast("ERROR", error.response.data.message);
       }
     } finally {
       setLoading(false);

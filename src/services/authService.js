@@ -2,95 +2,45 @@ import axios from "axios";
 import api from "./api";
 
 export const registerUser = async (request) => {
-  try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/auth/register`,
-      request
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to Register");
-  }
+  return await axios.post(
+    `${import.meta.env.VITE_API_URL}/api/auth/register`,
+    request
+  );
 };
 
 export const loginUser = async (request) => {
-  try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/auth/login`,
-      request
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to Login");
-  }
+  return await axios.post(
+    `${import.meta.env.VITE_API_URL}/api/auth/login`,
+    request
+  );
 };
 
 export const forgotPasswordUser = async (request) => {
-  try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/auth/forgot-password`,
-      request
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to request Forgot Password"
-    );
-  }
+  return await axios.post(
+    `${import.meta.env.VITE_API_URL}/api/auth/forgot-password`,
+    request
+  );
 };
 
 export const resetPasswordUser = async (token, request) => {
-  try {
-    const response = await axios.patch(
-      `${import.meta.env.VITE_API_URL}/api/auth/reset-password/${token}`,
-      request
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to Reset Password"
-    );
-  }
+  return await axios.patch(
+    `${import.meta.env.VITE_API_URL}/api/auth/reset-password/${token}`,
+    request
+  );
 };
 
 export const getUser = async () => {
-  try {
-    const response = await api.get(`${import.meta.env.VITE_API_URL}/api/users`);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to get data User");
-  }
+  return await api.get(`api/users/`);
 };
 
 export const updateUser = async (request) => {
-  try {
-    const response = await api.patch(
-      `${import.meta.env.VITE_API_URL}/api/users`,
-      request,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to update data User"
-    );
-  }
+  return await api.patch(`api/users`, request, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const changePasswordUser = async (request) => {
-  try {
-    const response = await api.post(
-      `${import.meta.env.VITE_API_URL}/api/change-password`,
-      request
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to change Password"
-    );
-  }
+  return await api.post(`api/users/change-password`, request);
 };

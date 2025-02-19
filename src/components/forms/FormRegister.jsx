@@ -34,16 +34,16 @@ const FormRegister = () => {
     try {
       registerSchema.parse(state);
       const response = await registerUser(state);
-      if (response.success) {
+      if (response.status === 200) {
         setState({
           name: "",
           email: "",
           password: "",
           passwordConfirmation: "",
         });
-        showToast("SUCCESS", response.message);
+        showToast("SUCCESS", response.data.message);
       } else {
-        console.error(response.message);
+        console.error(response.data.message);
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -55,7 +55,7 @@ const FormRegister = () => {
         setErrors(formErrors);
       } else {
         console.log(error);
-        showToast("ERROR", error.message);
+        showToast("ERROR", error.response.data.message);
       }
     } finally {
       setLoading(false);

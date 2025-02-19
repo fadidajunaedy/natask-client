@@ -30,15 +30,14 @@ const FormLogin = () => {
     try {
       loginSchema.parse(state);
       const response = await loginUser(state);
-      const user = response.data;
-      const token = response.token;
-
-      if (response.success) {
+      if (response.status === 200) {
+        const user = response.data.data;
+        const token = response.data.token;
         dispatch(storeDataUser({ data: user, token: token }));
-        showToast("SUCCESS", response.message);
+        showToast("SUCCESS", response.data.message);
         navigate("/dashboard");
       } else {
-        console.error(response.message);
+        console.error(response);
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -50,7 +49,7 @@ const FormLogin = () => {
         setErrors(formErrors);
       } else {
         console.log(error);
-        showToast("ERROR", error.message);
+        showToast("ERROR", error.response.data.message);
       }
     } finally {
       setLoading(false);

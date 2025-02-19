@@ -24,10 +24,11 @@ const Dashboard = () => {
       setLoading(true);
       try {
         const responseDashboard = await getDataDashboard(controller.signal);
-        if (responseDashboard.success) setData(responseDashboard.data);
+        if (responseDashboard.status === 200)
+          setData(responseDashboard.data.data);
 
         const responseTasks = await getAllTask(controller.signal);
-        if (responseTasks.success) setTasks(responseTasks.data);
+        if (responseTasks.status === 200) setTasks(responseTasks.data.data);
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("Fetch aborted");

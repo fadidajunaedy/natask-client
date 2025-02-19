@@ -48,10 +48,10 @@ const FormChangePassword = () => {
     try {
       changePasswordSchema.parse(state);
       const response = await changePasswordUser(state);
-      console.log(response);
-      if (response.success) {
+      console.log(state);
+      if (response.status === 200) {
         handleReset();
-        showToast("SUCCESS", response.message);
+        showToast("SUCCESS", response.data.message);
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -62,7 +62,7 @@ const FormChangePassword = () => {
         setErrors(formErrors);
       } else {
         console.log(error);
-        showToast("ERROR", error.message);
+        showToast("ERROR", error.response.data.message);
       }
     } finally {
       setLoading(false);

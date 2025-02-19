@@ -55,9 +55,9 @@ const FormEditEmployee = () => {
       const { _id, _v, createdAt, updatedAt, ...updatedData } = state;
       employeeSchema.parse(updatedData);
       const response = await updateEmployee(_id, updatedData);
-      if (response.success) {
+      if (response.status === 200) {
         eventEmitter.emit("employeeChanged");
-        showToast("SUCCESS", response.message);
+        showToast("SUCCESS", response.data.message);
         dispatch(closeModal());
       }
     } catch (error) {
@@ -69,7 +69,7 @@ const FormEditEmployee = () => {
         setErrors(formErrors);
       } else {
         console.log(error);
-        showToast("ERROR", error.message);
+        showToast("ERROR", error.response.data.message);
       }
     } finally {
       setLoading(false);

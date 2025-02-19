@@ -58,12 +58,12 @@ const FormEditProfile = () => {
     try {
       profileSchema.parse(state);
       const response = await updateUser(state);
-      if (response.success) {
+      if (response.status === 200) {
         const responseUpdate = await getUser();
-        if (responseUpdate.success) {
-          dispatch(storeDataUser({ data: responseUpdate.data }));
+        if (responseUpdate.data.success) {
+          dispatch(storeDataUser({ data: responseUpdate.data.data }));
         }
-        showToast("SUCCESS", response.message);
+        showToast("SUCCESS", response.data.message);
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -74,7 +74,7 @@ const FormEditProfile = () => {
         setErrors(formErrors);
       } else {
         console.log(error);
-        showToast("ERROR", error.message);
+        showToast("ERROR", error.response.data.message);
       }
     } finally {
       setLoading(false);

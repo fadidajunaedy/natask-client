@@ -1,78 +1,24 @@
 import api from "./api";
 
 export const getSubtask = async (_id, signal) => {
-  try {
-    const response = await api.get(
-      `${import.meta.env.VITE_API_URL}/api/subtasks/${_id}`,
-      { signal }
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to get data Subtask"
-    );
-  }
+  return await api.get(`api/subtasks/${_id}`, { signal });
 };
 
 export const getAllSubtask = async (queries, signal) => {
-  try {
-    const response = await api.get(
-      `${import.meta.env.VITE_API_URL}/api/subtasks`,
-      {
-        params: queries,
-        signal,
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to get all data Subtask"
-    );
-  }
+  return await api.get(`/api/subtasks`, {
+    params: queries,
+    signal,
+  });
 };
 
 export const createSubtask = async (request) => {
-  try {
-    const response = await api.post(
-      `${import.meta.env.VITE_API_URL}/api/subtasks`,
-      request
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to create data Subtask"
-    );
-  }
+  return await api.post(`api/subtasks`, request);
 };
 
 export const updateSubtask = async (_id, request) => {
-  try {
-    const response = await api.patch(
-      `${import.meta.env.VITE_API_URL}/api/subtasks/${_id}`,
-      request
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to update data Subtask"
-    );
-  }
+  return await api.patch(`api/subtasks/${_id}`, request);
 };
 
 export const deleteSubtask = async (_id) => {
-  try {
-    const response = await api.delete(
-      `${import.meta.env.VITE_API_URL}/api/subtasks/${_id}`,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to delete data Subtask"
-    );
-  }
+  return await api.delete(`api/subtasks/${_id}`);
 };

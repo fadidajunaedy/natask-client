@@ -1,73 +1,21 @@
 import api from "./api";
 
 export const getTask = async (_id, signal) => {
-  try {
-    const response = await api.get(
-      `${import.meta.env.VITE_API_URL}/api/tasks/${_id}`,
-      { signal }
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to get data Task");
-  }
+  return await api.get(`api/tasks/${_id}`, { signal });
 };
 
 export const getAllTask = async (signal) => {
-  try {
-    const response = await api.get(
-      `${import.meta.env.VITE_API_URL}/api/tasks`,
-      { signal }
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to get all data Task"
-    );
-  }
+  return await api.get(`/api/tasks`, { signal });
 };
 
 export const createTask = async (request) => {
-  try {
-    const response = await api.post(
-      `${import.meta.env.VITE_API_URL}/api/tasks`,
-      request
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to create data Task"
-    );
-  }
+  return await api.post(`api/tasks`, request);
 };
 
 export const updateTask = async (_id, request) => {
-  try {
-    const response = await api.patch(
-      `${import.meta.env.VITE_API_URL}/api/tasks/${_id}`,
-      request
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to update data Task"
-    );
-  }
+  return await api.patch(`api/tasks/${_id}`, request);
 };
 
 export const deleteTask = async (_id) => {
-  try {
-    const response = await api.delete(
-      `${import.meta.env.VITE_API_URL}/api/tasks/${_id}`,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to delete data Task"
-    );
-  }
+  return await api.delete(`api/tasks/${_id}`);
 };

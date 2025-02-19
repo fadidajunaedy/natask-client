@@ -25,9 +25,9 @@ const FormForgotPassword = () => {
     try {
       forgotPasswordSchema.parse(state);
       const response = await forgotPasswordUser(state);
-      if (response.success) {
+      if (response.status === 200) {
         setState({});
-        showToast("SUCCESS", response.message);
+        showToast("SUCCESS", response.data.message);
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -38,7 +38,7 @@ const FormForgotPassword = () => {
         showToast("ERROR", "Periksa Kembali form anda");
         setErrors(formErrors);
       } else {
-        showToast("ERROR", error.message);
+        showToast("ERROR", error.response.data.message);
       }
     } finally {
       setLoading(false);

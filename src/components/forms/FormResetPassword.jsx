@@ -35,8 +35,8 @@ const FormResetPassword = () => {
     try {
       resetPasswordSchema.parse(state);
       const response = await resetPasswordUser(token, state);
-      if (response.success) {
-        showToast("SUCCESS", response.message);
+      if (response.status === 200) {
+        showToast("SUCCESS", response.data.message);
         navigate("/auth/login");
       }
     } catch (error) {
@@ -48,7 +48,7 @@ const FormResetPassword = () => {
         showToast("ERROR", "Periksa Kembali form anda");
         setErrors(formErrors);
       } else {
-        showToast("ERROR", error.message);
+        showToast("ERROR", error.response.data.message);
       }
     } finally {
       setLoading(false);

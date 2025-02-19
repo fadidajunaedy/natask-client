@@ -20,7 +20,7 @@ const SubTaskList = ({ taskId, viewMode = "DASHBOARD" }) => {
           { taskId: taskId },
           controller.signal
         );
-        if (response.success) setData(response.data);
+        if (response.status === 200) setData(response.data);
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("Fetch aborted");
@@ -38,44 +38,6 @@ const SubTaskList = ({ taskId, viewMode = "DASHBOARD" }) => {
       eventEmitter.off("subtaskChanged", handleGetSubtask);
     };
   }, [taskId]);
-
-  useEffect(() => {
-    const ws = new WebSocket(import.meta.env.VITE_WEB_SOCKET);
-    ws.onopen = () => {
-      ws.send(
-        JSON.stringify({
-          event: "subscribe", // Custom event type
-          payload: data.length > 0 && data.map((subtask) => subtask._id), // Data yang di-subscribe
-        })
-      );
-    };
-    ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      // Handle custom event
-      if (message.event === "subtaskUpdated") {
-        const newData = message.payload;
-        // Cari indeks data yang akan digantikan
-        const index = data.findIndex((subtask) => subtask._id === newData._id);
-
-        // Jika data ditemukan, lakukan penggantian pada indeks yang sama
-        if (index !== -1) {
-          const updatedData = [...data];
-          updatedData[index] = newData;
-          setData(updatedData);
-        } else {
-          console.warn(
-            "Subtask tidak ditemukan, tidak ada data yang diupdate!"
-          );
-        }
-      } else {
-        console.warn("Unknown event:", message.event);
-      }
-    };
-
-    return () => {
-      ws.close();
-    };
-  }, [data]);
 
   return (
     <ul>
