@@ -20,7 +20,7 @@ const SubTaskList = ({ taskId, viewMode = "DASHBOARD" }) => {
           { taskId: taskId },
           controller.signal
         );
-        if (response.status === 200) setData(response.data);
+        if (response.status === 200) setData(response.data.data);
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("Fetch aborted");
