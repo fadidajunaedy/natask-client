@@ -57,7 +57,8 @@ const Task = () => {
         if (error.name === "AbortError") {
           console.log("Fetch aborted");
         } else {
-          showToast("ERROR", error.message);
+          console.log(error);
+          showToast("ERROR", error.response.data.message);
         }
       } finally {
         setLoading(false);

@@ -39,7 +39,7 @@ const Employee = () => {
           console.log("Fetch aborted");
         } else {
           console.log(error);
-          showToast("ERROR", error.message);
+          showToast("ERROR", error.response.data.message);
         }
       } finally {
         setLoading(false);

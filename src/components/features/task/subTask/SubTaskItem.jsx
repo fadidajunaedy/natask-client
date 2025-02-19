@@ -23,14 +23,14 @@ const SubTaskItem = ({ subTask, viewMode = "DASHBOARD" }) => {
     try {
       if (subTask.status === newStatus) return;
       const response = await updateSubtask(subTask._id, { status: newStatus });
-      if (response.success) {
+      if (response.status === 200) {
         eventEmitter.emit("subtaskChanged");
-        showToast("SUCCESS", response.message);
+        showToast("SUCCESS", response.data.message);
         dispatch(closeModal());
       }
     } catch (error) {
       console.log(error);
-      showToast("ERROR", error.message);
+      showToast("ERROR", error.response.data.message);
     } finally {
       setLoading(false);
     }
