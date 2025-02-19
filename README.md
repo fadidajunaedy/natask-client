@@ -1,4 +1,4 @@
-# Natask
+# Natask (Client)
 
 Natask is a web-based task management platform designed to help teams efficiently assign, track, and manage tasks in real-time (in progress...), enhancing productivity and collaboration. This repository contains the frontend of Natask, built with modern web technologies.
 
