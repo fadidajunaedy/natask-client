@@ -27,7 +27,7 @@ const DashboardHeader = () => {
 
   return (
     <header
-      className={`w-[inherit] h-[12vh] fixed top-0 z-[90] bg-base-100 border-b border-base-200 flex justify-between items-center p-4 ${
+      className={`w-[inherit] h-[10vh] fixed top-0 z-[90] bg-base-100 border-b border-base-200 flex justify-between items-center p-4 ${
         showShadow && "shadow-lg"
       }`}
     >

@@ -20,7 +20,7 @@ const DashboardSidebar = () => {
         isShow ? "translate-x-[0%]" : "translate-x-[-100%]"
       }  lg:translate-x-[0%] lg:fixed lg:top-0 lg:self-start bg-base-100 color-base-100 w-full lg:w-[20em] h-screen flex flex-col shadow-lg`}
     >
-      <div className="w-full h-[12vh] flex justify-between items-center p-4">
+      <div className="w-full h-[10vh] flex justify-between items-center p-4">
         <div className="flex items-center gap-2">
           <img src={NataskLogo} alt="Natask Logo" className="h-[1.6em]" />
           <Heading level="h1" size="3xl">

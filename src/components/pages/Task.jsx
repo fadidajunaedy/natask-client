@@ -1,27 +1,27 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Heading from "../common/Heading";
+import { getTaskPublic } from "../../services/taskPublicService";
 import moment from "moment";
+import Heading from "../common/Heading";
 import Badge from "../common/Bagde";
 import Avatar from "../common/Avatar";
-import SubTaskList from "../features/task/subTask/SubTaskList";
-import { getTask } from "../../services/taskService";
 import useToast from "../../hooks/useToast";
+import SubTaskList from "../features/task/subTask/SubTaskList";
 
 const Task = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const showToast = useToast();
   const { _id } = useParams();
+  const showToast = useToast();
 
   useEffect(() => {
     const controller = new AbortController();
     const handleGerData = async () => {
       setLoading(true);
       try {
-        const response = await getTask(_id, controller.signal);
-        if (response.success) setData(response.data);
+        const response = await getTaskPublic(_id, controller.signal);
+        if (response.status === 200) setData(response.data.data);
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("Fetch aborted");
@@ -45,9 +45,7 @@ const Task = () => {
             <div className="flex items-center gap-2">
               <Avatar
                 size="2em"
-                src={`${import.meta.env.VITE_API_URL}/files/employee/photo/${
-                  data.employee.photo
-                }`}
+                src={data.employee.photo}
                 alt={data.employee.name}
               />
               <span className="font-semibold">{data.employee.name}</span>
@@ -86,7 +84,7 @@ const Task = () => {
                 <Badge level="none">{data.type}</Badge>
               </div>
             </div>
-            <SubTaskList taskId={_id} viewMode="PUBLIC" />
+            <SubTaskList taskId={_id} mode="PUBLIC" />
           </article>
         </main>
       </>

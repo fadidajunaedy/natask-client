@@ -27,7 +27,7 @@ const DashboardLayout = () => {
         <DashboardSidebar />
         <main className="ml-auto w-full lg:w-[calc(100%-20em)] min-h-[100vh] overflow-y-auto flex flex-col">
           <DashboardHeader />
-          <div className="min-h-[88vh] overflow-x-hidden overflow-y-auto flex flex-col p-4 mt-[12vh]">
+          <div className="min-h-[90vh] overflow-x-hidden overflow-y-auto flex flex-col p-4 mt-[10vh]">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />

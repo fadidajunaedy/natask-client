@@ -1,28 +1,25 @@
-import { useState } from "react";
-import Button from "../../../common/Button";
+import { useDispatch } from "react-redux";
+import { FiTrash } from "react-icons/fi";
 import {
   TbCircle,
   TbProgressCheck,
   TbEditCircle,
   TbCircleCheck,
 } from "react-icons/tb";
-import { useDispatch } from "react-redux";
-import { FiTrash } from "react-icons/fi";
 import { closeModal, openModal } from "../../../../store/modalSlice";
 import { updateSubtask } from "../../../../services/subtaskService";
+import Button from "../../../common/Button";
 import useToast from "../../../../hooks/useToast";
 import eventEmitter from "../../../../utils/eventEmitter";
 
-const SubTaskItem = ({ subTask, viewMode = "DASHBOARD" }) => {
-  const [loading, setLoading] = useState(false);
+const SubtaskItem = ({ data, loading, mode = "PRIVATE" }) => {
   const showToast = useToast();
   const dispatch = useDispatch();
 
   const handleChangeStatus = async (newStatus) => {
-    setLoading(true);
     try {
-      if (subTask.status === newStatus) return;
-      const response = await updateSubtask(subTask._id, { status: newStatus });
+      if (data.status === newStatus) return;
+      const response = await updateSubtask(data._id, { status: newStatus });
       if (response.status === 200) {
         eventEmitter.emit("subtaskChanged");
         showToast("SUCCESS", response.data.message);
@@ -31,43 +28,44 @@ const SubTaskItem = ({ subTask, viewMode = "DASHBOARD" }) => {
     } catch (error) {
       console.log(error);
       showToast("ERROR", error.response.data.message);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <li className="border-t first:border-t-0 border-base-300 py-2 flex justify-between items-center gap-4">
-      <p>{subTask.title}</p>
+      <p className="text-xs md:text-sm">{loading ? "..." : data.title}</p>
       <div className="flex items-center gap-2">
         <div className="dropdown dropdown-left dropdown-end z-[2] ml-auto">
           <Button
+            size="sm"
             level={
-              subTask.status === "toDo"
+              data.status === "toDo"
                 ? "none"
-                : subTask.status === "inProgress"
+                : data.status === "inProgress"
                 ? "info"
-                : subTask.status === "inReview"
+                : data.status === "inReview"
                 ? "warning"
-                : subTask.status === "done" && "success"
+                : data.status === "done" && "success"
             }
             square
+            loading={loading}
           >
-            {subTask.status === "toDo" ? (
+            {data.status === "toDo" ? (
               <TbCircle />
-            ) : subTask.status === "inProgress" ? (
+            ) : data.status === "inProgress" ? (
               <TbProgressCheck />
-            ) : subTask.status === "inReview" ? (
+            ) : data.status === "inReview" ? (
               <TbEditCircle />
             ) : (
-              subTask.status === "done" && <TbCircleCheck />
+              data.status === "done" && <TbCircleCheck />
             )}
           </Button>
           <div
             tabIndex={0}
-            className="dropdown-content w-48 p-2 z-[99] flex flex-col gap-2 mr-2 bg-base-200 rounded box-shadow"
+            className="dropdown-content w-48 p-2 z-[99] flex flex-col gap-2 mr-2 bg-base-200 rounded-xl box-shadow"
           >
             <Button
+              size="sm"
               level="none"
               onClick={() => handleChangeStatus("toDo")}
               loading={loading}
@@ -75,6 +73,7 @@ const SubTaskItem = ({ subTask, viewMode = "DASHBOARD" }) => {
               <TbCircle /> To Do
             </Button>
             <Button
+              size="sm"
               level="info"
               onClick={() => handleChangeStatus("inProgress")}
               loading={loading}
@@ -82,15 +81,17 @@ const SubTaskItem = ({ subTask, viewMode = "DASHBOARD" }) => {
               <TbProgressCheck /> In Progress
             </Button>
             <Button
+              size="sm"
               level="warning"
               onClick={() => handleChangeStatus("inReview")}
               loading={loading}
             >
               <TbEditCircle />{" "}
-              {viewMode === "DASHBOARD" ? "In Review" : "Ask for Review"}
+              {mode === "PRIVATE" ? "In Review" : "Ask for Review"}
             </Button>
-            {viewMode === "DASHBOARD" && (
+            {mode === "PRIVATE" && (
               <Button
+                size="sm"
                 level="success"
                 onClick={() => handleChangeStatus("done")}
                 loading={loading}
@@ -100,15 +101,17 @@ const SubTaskItem = ({ subTask, viewMode = "DASHBOARD" }) => {
             )}
           </div>
         </div>
-        {viewMode === "DASHBOARD" && (
+        {mode === "PRIVATE" && (
           <Button
+            size="sm"
             level="error"
             square
             onClick={() =>
               dispatch(
-                openModal({ key: "SUBTASK", type: "DELETE", _id: subTask._id })
+                openModal({ key: "SUBTASK", type: "DELETE", _id: data._id })
               )
             }
+            loading={loading}
           >
             <FiTrash />
           </Button>
@@ -118,4 +121,4 @@ const SubTaskItem = ({ subTask, viewMode = "DASHBOARD" }) => {
   );
 };
 
-export default SubTaskItem;
+export default SubtaskItem;

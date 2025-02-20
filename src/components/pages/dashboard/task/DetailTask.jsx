@@ -51,7 +51,7 @@ const DetailTask = () => {
         if (error.name === "AbortError") {
           console.log("Fetch aborted");
         } else {
-          console.log(error)
+          console.log(error);
           showToast("ERROR", error.response.data.message);
         }
       } finally {
@@ -161,6 +161,7 @@ const DetailTask = () => {
                     openModal({ key: "SUBTASK", type: "CREATE", _id: _id })
                   )
                 }
+                size="sm"
               >
                 + Create
               </Button>

@@ -35,6 +35,7 @@ const Button = ({
       "btn-lg": size === "lg",
       "btn-md": size === "md",
       "btn-sm": size === "sm",
+      "btn-xs": size === "xs",
     },
     {
       "text-left": align === "left",
