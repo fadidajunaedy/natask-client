@@ -75,8 +75,8 @@ const DetailTask = () => {
   return (
     data && (
       <>
-        <div className="max-w-24 mb-4">
-          <Button level="none" size="lg" onClick={() => navigate(-1)}>
+        <div className="mb-4">
+          <Button level="none" onClick={() => navigate(-1)}>
             <IoArrowBack /> Back
           </Button>
         </div>
@@ -91,26 +91,26 @@ const DetailTask = () => {
                 />
                 <span className="font-semibold">{data.employee.name}</span>
               </div>
-              <div className="grow flex flex-col gap-4">
-                <Heading level="h2" size="3xl">
+              <div className="grow flex flex-col gap-2">
+                <Heading level="h3" size="xl">
                   {data.title}
                 </Heading>
                 <p className="opacity-80">{data.description}</p>
-                <div className="flex flex-col gap-2">
-                  <p>
+                <div className="flex flex-col gap-2 mb-2">
+                  <p className="text-sm opacity-60">
                     <span className="font-semibold">Assigned at:</span>
                     &nbsp;
                     {moment(data.assignedAt).format("DD MMMM YYYY")}
                   </p>
-                  <p>
+                  <p className="text-sm opacity-60">
                     <span className="font-semibold">Deadline at:</span>
                     &nbsp;
                     {moment(data.deadlineAt).format("DD MMMM YYYY")}
                   </p>
                 </div>
-
-                <div className="flex flex-wrap items-center gap-2 mt-auto">
+                <div className="flex flex-wrap items-center gap-2">
                   <Badge
+                    size="xs"
                     level={
                       data.priority === "high"
                         ? `error`
@@ -123,12 +123,13 @@ const DetailTask = () => {
                       data.priority.slice(1)}{" "}
                     Priority
                   </Badge>
-                  <Badge level="none">{data.type}</Badge>
+                  <Badge size="xs" level="none">
+                    {data.type}
+                  </Badge>
                 </div>
               </div>
               <Button
                 level="warning"
-                size="lg"
                 outline
                 onClick={() =>
                   dispatch(openModal({ key: "TASK", type: "EDIT", data: data }))
@@ -139,7 +140,6 @@ const DetailTask = () => {
               </Button>
               <Button
                 level="info"
-                size="lg"
                 outline
                 onClick={handleCopyLinkTask}
                 className="grow"
@@ -151,7 +151,7 @@ const DetailTask = () => {
 
           <div className="lg:col-span-2 bg-base-100 border border-base-200 rounded-xl shadow-lg p-4">
             <div className="flex justify-between items-center gap-2 mb-4">
-              <Heading level="h3" size="2xl">
+              <Heading level="h4" size="lg">
                 Subtask
               </Heading>
               <Button
