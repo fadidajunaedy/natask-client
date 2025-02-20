@@ -74,7 +74,7 @@ const useSubtaskListChannel = (taskId, mode = "PRIVATE") => {
     taskChannel.subscribe();
 
     return () => {
-      supabase.removeChannel(taskChannel);
+      taskChannel.unsubscribe()
     };
   }, [data]);
 
@@ -118,7 +118,7 @@ const useSubtaskListChannel = (taskId, mode = "PRIVATE") => {
 
     return () => {
       subtaskChannels.forEach((subtaskChannel) =>
-        supabase.removeChannel(subtaskChannel)
+        subtaskChannel.unsubscribe()
       );
     };
   }, [data, subtaskIds]);
