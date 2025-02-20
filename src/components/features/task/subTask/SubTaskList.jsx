@@ -1,4 +1,4 @@
-import SubtaskItem from "./SubtaskItem";
+import SubtaskItem from "./SubTaskItem";
 import useSubtaskListChannel from "../../../../hooks/useSubtaskListChannel";
 
 const SubTaskList = ({ taskId, mode = "PRIVATE" }) => {
