@@ -97,15 +97,16 @@ const Employee = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-4">
         <div className="w-full flex items-center gap-4">
           <div className="dropdown dropdown-start">
-            <Button size="lg" level="primary" square>
+            <Button level="primary" square>
               <IoFilterSharp />
             </Button>
             <div
               tabIndex={0}
-              className="dropdown-content menu w-52 bg-base-100 border border-base-200 rounded-xl shadow-lg mt-4 p-4 gap-4"
+              className="dropdown-content menu w-52 bg-base-100 border border-base-200 rounded-xl shadow-lg mt-4 p-2 gap-2"
             >
               {arraySorts.map((sort, index) => (
                 <Button
+                  size="sm"
                   key={index}
                   level={sortMode === sort ? `primary` : `none`}
                   onClick={() => setSortMode(sort)}
@@ -117,7 +118,6 @@ const Employee = () => {
           </div>
           <Input
             type="search"
-            size="lg"
             name="search"
             placeholder="Search..."
             value={keyword}
@@ -127,7 +127,6 @@ const Employee = () => {
         <div className="xl:col-start-3 w-full flex justify-end items-center gap-4">
           <Button
             level="primary"
-            size="lg"
             onClick={() =>
               dispatch(openModal({ key: "EMPLOYEE", type: "CREATE" }))
             }

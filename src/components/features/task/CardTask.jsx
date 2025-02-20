@@ -56,27 +56,27 @@ const CardTask = ({ task }) => {
 
   return (
     <>
-      <article className="flex flex-col gap-4 break-word bg-base-100 border border-base-200 shadow-lg rounded-xl p-4">
-        <div className="flex items-center gap-2">
+      <article className="flex flex-col gap-2 break-word bg-base-100 border border-base-200 shadow-lg rounded-xl p-4">
+        <div className="flex items-center gap-2 mb-2">
           <Avatar
-            size="2em"
+            size="1.5em"
             src={task.employee.photo}
             alt={task.employee.name}
           />
-          <span className="font-semibold">{task.employee.name}</span>
+          <span className="text-sm font-semibold">{task.employee.name}</span>
         </div>
         <div className="grow flex flex-col gap-2">
-          <Heading level="h3" size="xl">
+          <Heading level="h3" size="lg">
             {task.title}
           </Heading>
-          <p className="text-sm opacity-80 mb-2">{task.description}</p>
+          <p className="opacity-80 mb-2">{task.description}</p>
           <div className="flex flex-col gap-2 mb-4">
-            <p>
+            <p className="text-sm opacity-60">
               <span className="font-semibold">Assigned at:</span>
               &nbsp;
               {moment(task.assignedAt).format("DD MMMM YYYY")}
             </p>
-            <p>
+            <p className="text-sm opacity-60">
               <span className="font-semibold">Deadline at:</span>
               &nbsp;
               {moment(task.deadlineAt).format("DD MMMM YYYY")}
@@ -91,22 +91,23 @@ const CardTask = ({ task }) => {
                   ? `warning`
                   : `info`
               }
-              size="sm"
+              size="xs"
             >
               {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}{" "}
               Priority
             </Badge>
-            <Badge level="none" size="sm">
+            <Badge level="none" size="xs">
               {task.type}
             </Badge>
           </div>
-          <progress
+          {/* <progress
             className="progress progress-lg progress-primary w-full mt-auto mb-2"
             value={subtaskProgressPercentage}
             max="100"
-          ></progress>
-          <div className="flex justify-end items-center gap-2">
+          ></progress> */}
+          <div className="flex justify-end items-center gap-2 mt-auto">
             <Button
+              size="sm"
               level="error"
               square
               outline
@@ -119,7 +120,7 @@ const CardTask = ({ task }) => {
               <FiTrash />
             </Button>
             <Link to={`/dashboard/task/${task._id}`}>
-              <Button level="primary" outline>
+              <Button size="sm" level="primary" outline>
                 Detail
                 <IoArrowForward />
               </Button>

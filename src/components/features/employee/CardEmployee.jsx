@@ -12,12 +12,14 @@ const CardEmployee = ({ employee }) => {
   return (
     <>
       <article className="w-full flex items-center gap-4 break-word bg-base-100 border border-base-200 shadow-lg rounded-xl p-4">
-        <Avatar src={employee.photo} alt={employee.name} />
+        <Avatar size="2.8em" src={employee.photo} alt={employee.name} />
         <div>
-          <Heading level="h3" size="xl">
+          <Heading level="h3" size="md">
             {employee.name}
           </Heading>
-          <p className="break-all text-sm font-normal">{employee.email}</p>
+          <p className="break-all text-sm font-normal opacity-80">
+            {employee.email}
+          </p>
         </div>
         <div className="dropdown dropdown-bottom dropdown-end z-[2] ml-auto">
           <Button size="sm" level="none" square>
@@ -25,7 +27,7 @@ const CardEmployee = ({ employee }) => {
           </Button>
           <div
             tabIndex={0}
-            className="dropdown-content p-4 flex items-center gap-2 mt-2 bg-base-100 rounded-xl shadow-lg"
+            className="dropdown-content flex items-center gap-2 p-2 mt-2 bg-base-100 rounded-xl shadow-lg"
           >
             <Button
               size="sm"

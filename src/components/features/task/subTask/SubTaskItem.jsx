@@ -8,6 +8,7 @@ import {
 } from "react-icons/tb";
 import { closeModal, openModal } from "../../../../store/modalSlice";
 import { updateSubtask } from "../../../../services/subtaskService";
+import { updateSubtaskPublic } from "../../../../services/subtaskPublicService";
 import Button from "../../../common/Button";
 import useToast from "../../../../hooks/useToast";
 import eventEmitter from "../../../../utils/eventEmitter";
@@ -19,7 +20,12 @@ const SubtaskItem = ({ data, loading, mode = "PRIVATE" }) => {
   const handleChangeStatus = async (newStatus) => {
     try {
       if (data.status === newStatus) return;
-      const response = await updateSubtask(data._id, { status: newStatus });
+      let response;
+      if (mode === "PRIVATE") {
+        response = await updateSubtask(data._id, { status: newStatus });
+      } else if (mode === "PUBLIC") {
+        response = await updateSubtaskPublic(data._id, { status: newStatus });
+      }
       if (response.status === 200) {
         eventEmitter.emit("subtaskChanged");
         showToast("SUCCESS", response.data.message);

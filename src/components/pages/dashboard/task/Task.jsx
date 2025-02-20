@@ -116,17 +116,18 @@ const Task = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-4">
         <div className="w-full flex items-center gap-2">
           <div className="dropdown dropdown-start">
-            <Button size="lg" level="primary" square>
+            <Button level="primary" square>
               <IoFilterSharp />
             </Button>
             <div
               tabIndex={0}
-              className="dropdown-content menu w-52 bg-base-100 border border-base-200 rounded-xl shadow-lg mt-4 p-4 gap-4"
+              className="dropdown-content menu w-52 bg-base-100 border border-base-200 rounded-xl shadow-lg mt-4 p-2 gap-2"
             >
-              <span className="text-center">Filter By:</span>
+              <span className="text-sm text-center mb-2">Filter by:</span>
               {arraySortsBy.map((sort, index) => (
                 <Button
                   key={index}
+                  size="sm"
                   level={sortBy === sort.value ? `primary` : `none`}
                   onClick={() => setSortBy(sort.value)}
                 >
@@ -136,7 +137,6 @@ const Task = () => {
             </div>
           </div>
           <Button
-            size="lg"
             level="primary"
             onClick={() =>
               setSortMode((prev) =>
@@ -149,7 +149,6 @@ const Task = () => {
           </Button>
           <Input
             type="search"
-            size="lg"
             name="search"
             placeholder="Search..."
             value={keyword}
@@ -158,7 +157,6 @@ const Task = () => {
         </div>
         <div className="xl:col-start-3 w-full flex justify-end items-center gap-4">
           <Button
-            size="lg"
             level="primary"
             onClick={() => dispatch(openModal({ key: "TASK", type: "CREATE" }))}
             className="grow"
