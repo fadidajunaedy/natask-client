@@ -76,7 +76,11 @@ const DetailTask = () => {
     data && (
       <>
         <div className="mb-4">
-          <Button level="none" onClick={() => navigate(-1)}>
+          <Button
+            level="none"
+            onClick={() => navigate(-1)}
+            className="shadow-lg"
+          >
             <IoArrowBack /> Back
           </Button>
         </div>
@@ -97,12 +101,12 @@ const DetailTask = () => {
                 </Heading>
                 <p className="opacity-80">{data.description}</p>
                 <div className="flex flex-col gap-2 mb-2">
-                  <p className="text-sm opacity-60">
+                  <p className="opacity-60">
                     <span className="font-semibold">Assigned at:</span>
                     &nbsp;
                     {moment(data.assignedAt).format("DD MMMM YYYY")}
                   </p>
-                  <p className="text-sm opacity-60">
+                  <p className="opacity-60">
                     <span className="font-semibold">Deadline at:</span>
                     &nbsp;
                     {moment(data.deadlineAt).format("DD MMMM YYYY")}
@@ -110,7 +114,7 @@ const DetailTask = () => {
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge
-                    size="xs"
+                    size="sm"
                     level={
                       data.priority === "high"
                         ? `error`
@@ -123,7 +127,7 @@ const DetailTask = () => {
                       data.priority.slice(1)}{" "}
                     Priority
                   </Badge>
-                  <Badge size="xs" level="none">
+                  <Badge size="sm" level="none">
                     {data.type}
                   </Badge>
                 </div>

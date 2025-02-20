@@ -7,7 +7,7 @@ const Badge = ({ level = "none", size = "md", className, children }) => {
       [`${className}`]: className,
     },
     {
-      "text-neutral border": level === "none",
+      "text-neutral border opacity-80": level === "none",
       "text-base-100": level !== "none",
       "bg-primary": level === "primary",
       "bg-secondary": level === "secondary",

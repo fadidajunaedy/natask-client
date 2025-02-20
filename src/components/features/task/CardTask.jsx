@@ -63,20 +63,22 @@ const CardTask = ({ task }) => {
             src={task.employee.photo}
             alt={task.employee.name}
           />
-          <span className="text-sm font-semibold">{task.employee.name}</span>
+          <span className="text-sm font-semibold opacity-80">
+            {task.employee.name}
+          </span>
         </div>
         <div className="grow flex flex-col gap-2">
-          <Heading level="h3" size="lg">
+          <Heading level="h3" size="md">
             {task.title}
           </Heading>
-          <p className="opacity-80 mb-2">{task.description}</p>
+          <p className="text-sm opacity-80">{task.description}</p>
           <div className="flex flex-col gap-2 mb-4">
-            <p className="text-sm opacity-60">
+            <p className="text-xs opacity-80">
               <span className="font-semibold">Assigned at:</span>
               &nbsp;
               {moment(task.assignedAt).format("DD MMMM YYYY")}
             </p>
-            <p className="text-sm opacity-60">
+            <p className="text-xs opacity-80">
               <span className="font-semibold">Deadline at:</span>
               &nbsp;
               {moment(task.deadlineAt).format("DD MMMM YYYY")}
