@@ -124,5 +124,5 @@ select:focus {
 /* Pagination */
 .pagination .previous,
 .pagination .next {
-  @apply bg-secondary text-base-100 rounded-md shadow-lg p-1 cursor-pointer;
+  @apply btn btn-sm btn-square bg-base-100 rounded-xl cursor-pointer;
 }

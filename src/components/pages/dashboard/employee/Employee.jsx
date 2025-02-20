@@ -136,7 +136,18 @@ const Employee = () => {
           </Button>
         </div>
       </div>
-
+      {filteredData.length > itemsPerPage && (
+        <ReactPaginate
+          previousLabel={<HiMiniChevronLeft size={12} />}
+          nextLabel={<HiMiniChevronRight size={12} />}
+          pageCount={pageCount}
+          onPageChange={({ selected }) => setPageNumber(selected)}
+          containerClassName={
+            "pagination flex justify-end items-center gap-4 mb-4"
+          }
+          activeClassName={"text-primary font-bold"}
+        />
+      )}
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {loading ? (
           <div className="md:col-span-2 xl:col-span-3 flex justify-center items-center">
@@ -154,21 +165,6 @@ const Employee = () => {
           </div>
         )}
       </section>
-      {filteredData.length > itemsPerPage && (
-        <ReactPaginate
-          previousLabel={<HiMiniChevronLeft size={12} />}
-          nextLabel={<HiMiniChevronRight size={12} stroke="12" />}
-          pageCount={pageCount}
-          onPageChange={({ selected }) => setPageNumber(selected)}
-          containerClassName={
-            "pagination flex justify-end items-center gap-2 my-0 mt-auto"
-          }
-          previousLinkClassName={""}
-          nextLinkClassName={""}
-          disabledClassName={"bg-base-300"}
-          activeClassName={"font-bold text-secondary"}
-        />
-      )}
     </>
   );
 };
