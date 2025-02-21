@@ -43,7 +43,7 @@ const Button = ({
       "text-right": align === "right",
     },
     {
-      "text-base-100": !outline,
+      "border-none text-base-100": !outline,
       "btn-square": square,
       "btn-outline hover:text-base-100": outline,
     }
