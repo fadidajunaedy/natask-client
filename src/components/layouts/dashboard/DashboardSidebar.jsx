@@ -43,7 +43,7 @@ const DashboardSidebar = () => {
             to={route.path}
             end={route.path === "/dashboard" && true}
             onClick={() => dispatch(showSidebar({ isShow: false }))}
-            className="bg-base-100 flex items-center gap-2 rounded-xl p-4 hover:bg-secondary hover:text-base-100"
+            className="bg-base-100 flex items-center gap-2 rounded-xl py-[0.8rem] px-4 text-sm hover:bg-secondary hover:text-base-100"
           >
             {route.icon && <route.icon size={18} />}
             {route.name}
@@ -52,7 +52,7 @@ const DashboardSidebar = () => {
         <NavLink
           to="/dashboard/profile"
           onClick={() => dispatch(showSidebar({ isShow: false }))}
-          className="bg-base-100 flex items-center gap-2 rounded-xl shadow-lg shadow-base-200 p-4 border border-base-200 hover:bg-secondary hover:text-base-100 mt-auto"
+          className="bg-base-100 flex items-center gap-2 rounded-xl shadow-lg shadow-base-200 py-[0.8rem] px-4 border border-base-200 hover:bg-secondary hover:text-base-100 mt-auto"
         >
           <Avatar size="3em" src={data.photo} alt={data.name} />
           <div className="break-words">

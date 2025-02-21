@@ -113,9 +113,9 @@ const Task = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 mb-4">
         <div className="w-full flex items-center gap-2">
-          <div className="dropdown dropdown-start">
+          <div className="dropdown dropdown-start ">
             <Button level="primary" square>
               <IoFilterSharp />
             </Button>
