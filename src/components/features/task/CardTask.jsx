@@ -93,13 +93,13 @@ const CardTask = ({ task }) => {
                   ? `warning`
                   : `info`
               }
-              size="xs"
+              size="sm"
               soft
             >
               {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}{" "}
               Priority
             </Badge>
-            <Badge size="xs" level="primary" soft>
+            <Badge size="sm" level="primary" soft>
               {task.type}
             </Badge>
           </div>

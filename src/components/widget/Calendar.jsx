@@ -182,7 +182,8 @@ const Calendar = ({ data }) => {
               >
                 <label
                   className={`group flex items-center justify-center h-8 w-8 text-center hover:bg-base-200 hover:text-neutral rounded-full mx-1 mt-1 text-sm cursor-pointer prose-none ${
-                    isToday(day) && "bg-primary text-base-100"
+                    isToday(day) &&
+                    "badge badge-soft badge-primary  text-base-100"
                   } ${isDifferentMonth(day) && "text-slate-400"}`}
                   onClick={() =>
                     dispatch(
@@ -197,7 +198,7 @@ const Calendar = ({ data }) => {
                   <span
                     className={`${
                       isToday(day) &&
-                      "flex items-center justify-center h-8 w-8 text-center rounded-full  text-xl hover:bg-base-300 animate-wiggle"
+                      "flex items-center justify-center h-8 w-8 text-center rounded-full text-xl hover:bg-base-300 animate-wiggle"
                     }`}
                   >
                     {moment(day).format("D")}
@@ -209,14 +210,14 @@ const Calendar = ({ data }) => {
                   const isSeeMore = task.seeMore === true;
                   const statusColor = `text-base-100 font-semibold ${
                     task.priority === "high"
-                      ? "bg-error"
+                      ? "badge-error"
                       : task.priority === "medium"
-                      ? "bg-warning"
-                      : "bg-info"
+                      ? "badge-warning"
+                      : "badge-info"
                   }`;
-                  const className = `text-xs px-2 truncate cursor-pointer ${
+                  const className = `text-xs justify-start truncate cursor-pointer badge badge-xs badge-soft rounded-none w-auto text-left ${
                     isSeeMore
-                      ? "bg-secondary text-base-100 font-semibold"
+                      ? "badge-primary text-base-100 font-semibold"
                       : statusColor
                   }`;
                   if (isSeeMore) {
@@ -241,8 +242,8 @@ const Calendar = ({ data }) => {
                     return (
                       <>
                         {moment(day).isSame(moment(task.deadlineAt), "day") && (
-                          <span className="text-[0.5rem] flex items-center px-2 mb-0">
-                            Deadline <IoArrowDown />
+                          <span className="text-[0.5rem] text-error flex items-center px-2 -mb-1">
+                            <IoArrowDown /> Deadline
                           </span>
                         )}
                         <Link
@@ -251,7 +252,9 @@ const Calendar = ({ data }) => {
                           className={className}
                           onClick={() => console.log("test")}
                         >
-                          {task.title}
+                          {task.title.length > 20
+                            ? task.title.substring(0, 20) + "..."
+                            : task.title}
                         </Link>
                       </>
                     );

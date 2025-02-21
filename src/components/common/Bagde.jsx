@@ -26,11 +26,11 @@ const Badge = ({
       "badge-soft": soft,
     },
     {
-      "text-xl": size === "xl",
-      "text-lg": size === "lg",
-      "text-md": size === "md",
-      "text-sm": size === "sm",
-      "text-xs": size === "xs",
+      "badge-xl": size === "xl",
+      "badge-lg": size === "lg",
+      "badge-md": size === "md",
+      "badge-sm": size === "sm",
+      "badge-xs": size === "xs",
     }
   );
 

@@ -112,7 +112,6 @@ const DetailTask = () => {
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge
-                    size="sm"
                     level={
                       data.priority === "high"
                         ? `error`
@@ -126,7 +125,7 @@ const DetailTask = () => {
                       data.priority.slice(1)}{" "}
                     Priority
                   </Badge>
-                  <Badge size="sm" level="primary" soft>
+                  <Badge level="primary" soft>
                     {data.type}
                   </Badge>
                 </div>
