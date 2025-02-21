@@ -1,6 +1,11 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
+import {
+  HiChevronDoubleLeft,
+  HiChevronDoubleRight,
+  HiMiniChevronLeft,
+  HiMiniChevronRight,
+} from "react-icons/hi2";
 import Button from "../common/Button";
 import Avatar from "../common/Avatar";
 import { IoArrowDown } from "react-icons/io5";
@@ -123,28 +128,34 @@ const Calendar = ({ data }) => {
 
   return (
     <>
-      <div className="w-full bg-base-100 p-4 rounded-xl shadow-lg">
+      <div className="w-full bg-base-100 p-4 rounded-xl">
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
           <Button
             onClick={getCurrentMonth}
             level="secondary"
-            className={`${
+            className={
               moment(firstDayOfMonth).month() !== moment().month()
                 ? "visible"
                 : "invisible"
-            }`}
+            }
           >
             Go to Current Month
           </Button>
           <div className="w-full md:w-auto flex flex-row items-center justify-between gap-2 sm:gap-4 md:mb-0">
-            <button className="btn btn-ghost" onClick={getPrevMonth}>
-              <HiChevronDoubleLeft className="w-5 h-5" />
+            <button
+              className="btn btn-square btn-ghost rounded-xl"
+              onClick={getPrevMonth}
+            >
+              <HiMiniChevronLeft className="w-5 h-5" />
             </button>
             <p className="font-semibold w-48 text-center">
               {moment(firstDayOfMonth).format("MMMM yyyy").toString()}
             </p>
-            <button className="btn btn-ghost" onClick={getNextMonth}>
-              <HiChevronDoubleRight className="w-5 h-5" />
+            <button
+              className="btn btn-square btn-ghost rounded-xl"
+              onClick={getNextMonth}
+            >
+              <HiMiniChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -159,7 +170,7 @@ const Calendar = ({ data }) => {
           })}
         </div>
 
-        <div className="static grid grid-cols-7 mt-1 border-collapse  place-items-center">
+        <div className="grid grid-cols-7 mt-1 border-collapse  place-items-center">
           {allDaysInMonth().map((day, idx) => {
             return (
               <div

@@ -93,9 +93,11 @@ const DetailTask = () => {
                   src={data.employee.photo}
                   alt={data.employee.name}
                 />
-                <span className="font-semibold">{data.employee.name}</span>
+                <span className="font-semibold opacity-80">
+                  {data.employee.name}
+                </span>
               </div>
-              <div className="grow flex flex-col gap-2">
+              <div className="grow flex flex-col gap-4">
                 <Heading level="h3" size="xl">
                   {data.title}
                 </Heading>
@@ -122,12 +124,13 @@ const DetailTask = () => {
                         ? `warning`
                         : `info`
                     }
+                    soft
                   >
                     {data.priority.charAt(0).toUpperCase() +
                       data.priority.slice(1)}{" "}
                     Priority
                   </Badge>
-                  <Badge size="sm" level="none">
+                  <Badge size="sm" level="primary" soft>
                     {data.type}
                   </Badge>
                 </div>

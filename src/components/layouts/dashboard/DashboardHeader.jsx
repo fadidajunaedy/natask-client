@@ -43,13 +43,12 @@ const DashboardHeader = () => {
           {title}
         </Heading>
       </div>
-      <Button
-        outline
+      <button
+        className="cursor-pointer"
         onClick={() => dispatch(openModal({ key: "AUTH", type: "LOGOUT" }))}
-        className="hover:bg-secondary active:bg-primary"
       >
-        <IoLogOutOutline /> Logout
-      </Button>
+        <IoLogOutOutline size={32} />
+      </button>
     </header>
   );
 };

@@ -51,7 +51,7 @@ body {
 }
 
 .card-stat {
-  @apply flex justify-between items-center border-l-4 border-primary rounded-xl shadow-lg p-4 bg-base-100;
+  @apply flex justify-between items-center bg-base-100 border-l-8 border-primary p-4 rounded-r-xl;
 }
 
 .box-shadow:hover,
@@ -115,10 +115,10 @@ select:focus {
     var(--color-primary) 100%
   );
   color: transparent;
-  -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Pagination */

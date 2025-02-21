@@ -14,44 +14,43 @@ const ModalListTask = () => {
 
   return (
     <>
-      {/* <Heading level="h2" size="2xl" align="center" className="mb-4">
-        List Task Per
-      </Heading> */}
       <div className="flex flex-col gap-4">
-        {data.length > 0 &&
+        {data.length > 0 ? (
           data.map((task) => (
             <article
               key={task._id}
-              className="flex flex-col gap-4 break-word bg-base-100 border border-base-200 shadow-lg rounded-xl p-4"
+              className="flex flex-col gap-2 break-word bg-base-100 border border-base-200 shadow-lg rounded-xl p-4"
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-2">
                 <Avatar
                   size="1.5em"
-                  src={task?.employee?.photo}
+                  src={task.employee.photo}
                   alt={task.employee.name}
                 />
-                <span className="text-sm font-semibold">
+                <span className="text-sm font-semibold opacity-80">
                   {task.employee.name}
                 </span>
               </div>
-              <div className="grow flex flex-col gap-1">
-                <Heading level="h3" size="lg">
+              <div className="grow flex flex-col gap-2">
+                <Heading level="h3" size="md" className="line-clamp-2">
                   {task.title}
                 </Heading>
-                <p className="text-sm opacity-80 mb-2">{task.description}</p>
-                <div className="flex flex-col gap-1 mb-2">
-                  <p className="text-sm">
+                <p className="text-sm line-clamp-3 opacity-80">
+                  {task.description}
+                </p>
+                <div className="flex flex-col gap-2 mb-2">
+                  <p className="text-xs opacity-80">
                     <span className="font-semibold">Assigned at:</span>
                     &nbsp;
                     {moment(task.assignedAt).format("DD MMMM YYYY")}
                   </p>
-                  <p className="text-sm">
+                  <p className="text-xs opacity-80">
                     <span className="font-semibold">Deadline at:</span>
                     &nbsp;
                     {moment(task.deadlineAt).format("DD MMMM YYYY")}
                   </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 mb-2">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
                   <Badge
                     level={
                       task.priority === "high"
@@ -61,12 +60,13 @@ const ModalListTask = () => {
                         : `info`
                     }
                     size="xs"
+                    soft
                   >
                     {task.priority.charAt(0).toUpperCase() +
                       task.priority.slice(1)}{" "}
                     Priority
                   </Badge>
-                  <Badge level="none" size="xs">
+                  <Badge level="primary" size="xs" soft>
                     {task.type}
                   </Badge>
                 </div>
@@ -75,7 +75,7 @@ const ModalListTask = () => {
                     to={`/dashboard/task/${task._id}`}
                     onClick={() => dispatch(closeModal())}
                   >
-                    <Button level="primary">
+                    <Button size="sm" level="primary" outline>
                       Detail
                       <IoArrowForward />
                     </Button>
@@ -83,7 +83,12 @@ const ModalListTask = () => {
                 </div>
               </div>
             </article>
-          ))}
+          ))
+        ) : (
+          <span className="text-center italic p-4 opacity-60">
+            No task found
+          </span>
+        )}
       </div>
     </>
   );

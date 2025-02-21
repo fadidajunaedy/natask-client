@@ -48,7 +48,9 @@ const Task = () => {
                 src={data.employee.photo}
                 alt={data.employee.name}
               />
-              <span className="font-semibold">{data.employee.name}</span>
+              <span className="font-semibold opacity-80">
+                {data.employee.name}
+              </span>
             </div>
             <div className="grow flex flex-col gap-4">
               <Heading level="h2" size="3xl">
@@ -56,12 +58,12 @@ const Task = () => {
               </Heading>
               <p className="opacity-80">{data.description}</p>
               <div className="flex flex-col gap-2">
-                <p>
+                <p className="opacity-80">
                   <span className="font-semibold">Assigned at:</span>
                   &nbsp;
                   {moment(data.assignedAt).format("DD MMMM YYYY")}
                 </p>
-                <p>
+                <p className="opacity-80">
                   <span className="font-semibold">Deadline at:</span>
                   &nbsp;
                   {moment(data.deadlineAt).format("DD MMMM YYYY")}
@@ -76,12 +78,15 @@ const Task = () => {
                       ? `warning`
                       : `info`
                   }
+                  soft
                 >
                   {data.priority.charAt(0).toUpperCase() +
                     data.priority.slice(1)}{" "}
                   Priority
                 </Badge>
-                <Badge level="none">{data.type}</Badge>
+                <Badge level="primary" soft>
+                  {data.type}
+                </Badge>
               </div>
             </div>
             <SubTaskList taskId={_id} mode="PUBLIC" />

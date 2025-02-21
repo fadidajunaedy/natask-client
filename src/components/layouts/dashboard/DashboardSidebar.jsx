@@ -56,8 +56,8 @@ const DashboardSidebar = () => {
         >
           <Avatar size="3em" src={data.photo} alt={data.name} />
           <div className="break-words">
-            <p className="text-md font-bold">{data.name}</p>
-            <p className="text-sm font-normal">{data.email}</p>
+            <p className="text-md font-bold line-clamp-1">{data.name}</p>
+            <p className="text-sm font-normal line-clamp-1">{data.email}</p>
           </div>
           <IoIosArrowForward className="ml-auto" />
         </NavLink>

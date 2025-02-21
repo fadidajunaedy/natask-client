@@ -56,7 +56,7 @@ const CardTask = ({ task }) => {
 
   return (
     <>
-      <article className="flex flex-col gap-2 break-word bg-base-100 border border-base-200 shadow-lg rounded-xl p-4">
+      <article className="flex flex-col gap-2 break-word bg-base-100 rounded-xl p-4">
         <div className="flex items-center gap-2 mb-2">
           <Avatar
             size="1.5em"
@@ -68,11 +68,11 @@ const CardTask = ({ task }) => {
           </span>
         </div>
         <div className="grow flex flex-col gap-2">
-          <Heading level="h3" size="md">
+          <Heading level="h3" size="md" className="line-clamp-2">
             {task.title}
           </Heading>
-          <p className="text-sm opacity-80">{task.description}</p>
-          <div className="flex flex-col gap-2 mb-4">
+          <p className="text-sm line-clamp-3 opacity-80">{task.description}</p>
+          <div className="flex flex-col gap-2 mb-2">
             <p className="text-xs opacity-80">
               <span className="font-semibold">Assigned at:</span>
               &nbsp;
@@ -94,11 +94,12 @@ const CardTask = ({ task }) => {
                   : `info`
               }
               size="xs"
+              soft
             >
               {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}{" "}
               Priority
             </Badge>
-            <Badge level="none" size="xs">
+            <Badge size="xs" level="primary" soft>
               {task.type}
             </Badge>
           </div>

@@ -25,7 +25,7 @@ const Modal = () => {
         <div className="fixed z-[98] w-full min-h-screen overflow-hidden bg-neutral/50 flex justify-center items-center p-4">
           <div
             style={{ maxHeight: "calc(100vh - 2rem)" }}
-            className="z-[99] w-full max-w-xl overflow-y-auto bg-base-100 rounded-xl p-4"
+            className="relative z-[99] w-full max-w-xl overflow-y-auto bg-base-100 rounded-xl p-4"
           >
             {key === "EMPLOYEE" && type === "CREATE" && <ModalCreateEmployee />}
             {key === "EMPLOYEE" && type === "EDIT" && <ModalEditEmployee />}
