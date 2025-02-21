@@ -110,6 +110,7 @@ const Employee = () => {
                   key={index}
                   level={sortMode === sort ? `primary` : `none`}
                   onClick={() => setSortMode(sort)}
+                  className="border-2 border-base-200"
                 >
                   {sort}
                 </Button>

@@ -19,7 +19,7 @@ const Button = ({
       [`${className}`]: className,
     },
     {
-      "text-neutral bg-base-100 border": level === "none",
+      "text-neutral bg-base-100 border border-base-200": level === "none",
       // "text-base-100": level !== "none",
       "btn-neutral": level === "neutral",
       "btn-brand-yellow": level === "brand-yellow",
@@ -43,7 +43,7 @@ const Button = ({
       "text-right": align === "right",
     },
     {
-      "border-none text-base-100": !outline,
+      "text-base-100": !outline,
       "btn-square": square,
       "btn-outline hover:text-base-100": outline,
     }

@@ -12,6 +12,7 @@ import { IoArrowDown } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../store/modalSlice";
+import Heading from "../common/Heading";
 const Calendar = ({ data }) => {
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   const colStartClasses = [
@@ -129,18 +130,22 @@ const Calendar = ({ data }) => {
   return (
     <>
       <div className="w-full bg-base-100 p-4 rounded-xl">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <Button
-            onClick={getCurrentMonth}
-            level="secondary"
-            className={
-              moment(firstDayOfMonth).month() !== moment().month()
-                ? "visible"
-                : "invisible"
-            }
-          >
-            Go to Current Month
-          </Button>
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 items-center gap-4">
+          {moment(firstDayOfMonth).month() !== moment().month() ? (
+            <Button onClick={getCurrentMonth} level="secondary">
+              Go to Current Month
+            </Button>
+          ) : (
+            <Heading
+              level="h3"
+              size="xl"
+              align="center"
+              className="text-center md:text-left"
+            >
+              Calendar
+            </Heading>
+          )}
+
           <div className="w-full md:w-auto flex flex-row items-center justify-between gap-2 sm:gap-4 md:mb-0">
             <button
               className="btn btn-square btn-ghost rounded-xl"
