@@ -16,11 +16,11 @@ const Profile = () => {
   return (
     <>
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 items-start">
-        <div className="xl:col-span-2 flex flex-col gap-2 bg-base-100 border border-base-200 rounded-xl shadow-lg p-4">
+        <div className="xl:col-span-2 flex flex-col gap-2 bg-base-100 rounded-xl p-4">
           <FormEditProfile />
         </div>
         <div>
-          <div className="bg-base-100 border border-base-200 rounded-xl shadow-lg p-4">
+          <div className="bg-base-100 rounded-xl p-4">
             <Heading level="h2" size="2xl" className="mb-4">
               Change Password
             </Heading>

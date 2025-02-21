@@ -76,17 +76,13 @@ const DetailTask = () => {
     data && (
       <>
         <div className="mb-4">
-          <Button
-            level="none"
-            onClick={() => navigate(-1)}
-            className="shadow-lg"
-          >
+          <Button level="none" onClick={() => navigate(-1)}>
             <IoArrowBack /> Back
           </Button>
         </div>
         <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
           <div className="lg:sticky lg:top-0 flex flex-col gap-4">
-            <article className="flex flex-col gap-4 break-word bg-base-100 border border-base-200 rounded-xl shadow-lg p-4">
+            <article className="flex flex-col gap-4 break-word bg-base-100 rounded-xl p-4">
               <div className="flex items-center gap-2">
                 <Avatar
                   size="2em"
@@ -97,7 +93,7 @@ const DetailTask = () => {
                   {data.employee.name}
                 </span>
               </div>
-              <div className="grow flex flex-col gap-4">
+              <div className="grow flex flex-col gap-2">
                 <Heading level="h3" size="xl">
                   {data.title}
                 </Heading>
@@ -156,7 +152,7 @@ const DetailTask = () => {
             </article>
           </div>
 
-          <div className="lg:col-span-2 bg-base-100 border border-base-200 rounded-xl shadow-lg p-4">
+          <div className="lg:col-span-2 bg-base-100 rounded-xl p-4">
             <div className="flex justify-between items-center gap-2 mb-4">
               <Heading level="h4" size="lg">
                 Subtask
