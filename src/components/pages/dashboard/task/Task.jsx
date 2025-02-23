@@ -113,8 +113,8 @@ const Task = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 mb-4">
-        <div className="w-full flex items-center gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
+        <div className="col-span-1 md:col-span-2 w-full flex items-center gap-4">
           <div className="dropdown dropdown-start ">
             <Button level="primary" square>
               <IoFilterSharp />
@@ -155,7 +155,7 @@ const Task = () => {
             onChange={(e) => setKeyword(e.target.value)}
           />
         </div>
-        <div className="xl:col-start-3 w-full flex justify-end items-center gap-4">
+        <div className="md:col-start-3 xl:col-start-4 w-full flex justify-end items-center gap-4">
           <Button
             level="primary"
             onClick={() => dispatch(openModal({ key: "TASK", type: "CREATE" }))}
@@ -177,9 +177,9 @@ const Task = () => {
           activeClassName={"text-primary font-bold"}
         />
       )}
-      <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
         {loading ? (
-          <div className="md:col-span-2 xl:col-span-3 flex justify-center items-center">
+          <div className="col-span-1 sm:col-span-2 md:col-span-3 xl:col-span-4 flex justify-center items-center">
             <LoadingAnimation />
           </div>
         ) : filteredData.length > 0 ? (
@@ -187,7 +187,7 @@ const Task = () => {
             .slice(pagesVisited, pagesVisited + itemsPerPage)
             .map((task) => <CardTask key={task.id} task={task} />)
         ) : (
-          <div className="col-span-1 md:col-span-4 lg:col-span-3 text-center text-slate-400 italic py-8">
+          <div className="col-span-1 sm:col-span-2 md:col-span-3 xl:col-span-4 text-center text-slate-400 italic py-8">
             Task not found
           </div>
         )}

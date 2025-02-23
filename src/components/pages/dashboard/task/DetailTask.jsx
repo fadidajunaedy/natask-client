@@ -80,24 +80,26 @@ const DetailTask = () => {
             <IoArrowBack /> Back
           </Button>
         </div>
-        <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
-          <div className="lg:sticky lg:top-0 flex flex-col gap-4">
+        <div className="relative grid grid-cols-1 xl:grid-cols-3 gap-4 items-start">
+          <div className="xl:sticky xl:top-0 flex flex-col gap-4">
             <article className="flex flex-col gap-4 break-word bg-base-100 rounded-xl p-4">
               <div className="flex items-center gap-2">
                 <Avatar
-                  size="2em"
+                  size="3em"
                   src={data.employee.photo}
                   alt={data.employee.name}
                 />
-                <span className="font-semibold opacity-80">
+                <p className="text-sm md:text-base font-semibold opacity-60">
                   {data.employee.name}
-                </span>
+                </p>
               </div>
               <div className="grow flex flex-col gap-2">
-                <Heading level="h3" size="xl">
+                <Heading level="h3" size="lg">
                   {data.title}
                 </Heading>
-                <p className="opacity-80">{data.description}</p>
+                <p className="text-sm md:text-base opacity-60 mb-2">
+                  {data.description}
+                </p>
                 <div className="flex flex-col gap-2 mb-2">
                   <p className="opacity-60">
                     <span className="font-semibold">Assigned at:</span>
@@ -110,8 +112,9 @@ const DetailTask = () => {
                     {moment(data.deadlineAt).format("DD MMMM YYYY")}
                   </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
                   <Badge
+                    size="sm"
                     level={
                       data.priority === "high"
                         ? `error`
@@ -125,7 +128,7 @@ const DetailTask = () => {
                       data.priority.slice(1)}{" "}
                     Priority
                   </Badge>
-                  <Badge level="primary" soft>
+                  <Badge size="sm" level="primary" soft>
                     {data.type}
                   </Badge>
                 </div>
@@ -151,7 +154,7 @@ const DetailTask = () => {
             </article>
           </div>
 
-          <div className="lg:col-span-2 bg-base-100 rounded-xl p-4">
+          <div className="xl:col-span-2 bg-base-100 rounded-xl p-4">
             <div className="flex justify-between items-center gap-2 mb-4">
               <Heading level="h4" size="lg">
                 Subtask

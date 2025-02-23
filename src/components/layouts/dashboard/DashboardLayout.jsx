@@ -25,7 +25,7 @@ const DashboardLayout = () => {
       <Modal />
       <div className="w-full flex flex-row overflow-y-auto">
         <DashboardSidebar />
-        <main className="ml-auto w-full lg:w-[calc(100%-20em)] min-h-[100vh] overflow-y-auto flex flex-col">
+        <main className="ml-auto w-full lg:w-[calc(100%-18em)] min-h-[100vh] overflow-y-auto flex flex-col">
           <DashboardHeader />
           <div className="min-h-[90vh] overflow-x-hidden overflow-y-auto flex flex-col p-4 mt-[10vh]">
             <Routes>

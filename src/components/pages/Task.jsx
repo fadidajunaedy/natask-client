@@ -41,14 +41,14 @@ const Task = () => {
     data && (
       <>
         <main className="w-full min-h-screen flex flex-col justify-center items-center gap-4 bg-base-200 p-4">
-          <article className="max-w-lg flex flex-col gap-4 break-word bg-base-100  rounded-xl p-4">
+          <article className="max-w-lg flex flex-col gap-4 break-word bg-base-100 rounded-xl p-4">
             <div className="flex items-center gap-2">
               <Avatar
-                size="2em"
+                size="3em"
                 src={data.employee.photo}
                 alt={data.employee.name}
               />
-              <span className="font-semibold opacity-80">
+              <span className="text-lg font-semibold opacity-60">
                 {data.employee.name}
               </span>
             </div>
@@ -56,14 +56,14 @@ const Task = () => {
               <Heading level="h2" size="2xl">
                 {data.title}
               </Heading>
-              <p className="text-sm opacity-80">{data.description}</p>
-              <div className="flex flex-col gap-2">
-                <p className="text-sm opacity-80">
+              <p className="text-sm opacity-60 mb-2">{data.description}</p>
+              <div className="flex flex-col gap-2 mb-2">
+                <p className="text-sm opacity-60">
                   <span className="font-semibold">Assigned at:</span>
                   &nbsp;
                   {moment(data.assignedAt).format("DD MMMM YYYY")}
                 </p>
-                <p className="text-sm opacity-80">
+                <p className="text-sm opacity-60">
                   <span className="font-semibold">Deadline at:</span>
                   &nbsp;
                   {moment(data.deadlineAt).format("DD MMMM YYYY")}
@@ -92,7 +92,7 @@ const Task = () => {
             </div>
             <SubTaskList taskId={_id} mode="PUBLIC" />
           </article>
-          <span className="text-sm opacity-80">
+          <span className="text-sm opacity-60">
             &copy;Natask 2024, All Rights Reserved.
           </span>
         </main>

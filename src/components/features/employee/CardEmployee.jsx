@@ -14,10 +14,10 @@ const CardEmployee = ({ employee }) => {
       <article className="w-full flex items-center gap-4 break-word bg-base-100 rounded-xl p-4">
         <Avatar size="2.8em" src={employee.photo} alt={employee.name} />
         <div>
-          <Heading level="h3" size="md">
+          <Heading level="h3" size="sm">
             {employee.name}
           </Heading>
-          <p className="break-all text-sm font-normal opacity-80">
+          <p className=" text-xs font-normal break-all opacity-80">
             {employee.email}
           </p>
         </div>

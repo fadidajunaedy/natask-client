@@ -18,7 +18,7 @@ const DashboardSidebar = () => {
     <aside
       className={`fixed lg:absolute z-[91] left-0 ${
         isShow ? "translate-x-[0%]" : "translate-x-[-100%]"
-      }  lg:translate-x-[0%] lg:fixed lg:top-0 lg:self-start bg-base-100 color-base-100 w-full lg:w-[20em] h-screen flex flex-col shadow-lg`}
+      }  lg:translate-x-[0%] lg:fixed lg:top-0 lg:self-start bg-base-100 color-base-100 w-full lg:w-[18em] h-screen flex flex-col shadow-lg`}
     >
       <div className="w-full h-[10vh] flex justify-between items-center p-4">
         <div className="flex items-center gap-2">
@@ -54,7 +54,7 @@ const DashboardSidebar = () => {
           onClick={() => dispatch(showSidebar({ isShow: false }))}
           className="bg-base-100 flex items-center gap-2 rounded-xl shadow-lg shadow-base-200 py-[0.8rem] px-4 border border-base-200 hover:bg-secondary hover:text-base-100 mt-auto"
         >
-          <Avatar size="3em" src={data.photo} alt={data.name} />
+          {/* <Avatar size="3em" src={data.photo} alt={data.name} /> */}
           <div className="break-words">
             <p className="text-md font-bold line-clamp-1">{data.name}</p>
             <p className="text-sm font-normal line-clamp-1">{data.email}</p>

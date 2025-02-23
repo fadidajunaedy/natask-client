@@ -23,11 +23,11 @@ const ModalListTask = () => {
             >
               <div className="flex items-center gap-2 mb-2">
                 <Avatar
-                  size="1.5em"
+                  size="2em"
                   src={task.employee.photo}
                   alt={task.employee.name}
                 />
-                <span className="text-sm font-semibold opacity-80">
+                <span className="text-sm font-semibold opacity-60">
                   {task.employee.name}
                 </span>
               </div>
@@ -35,23 +35,24 @@ const ModalListTask = () => {
                 <Heading level="h3" size="md" className="line-clamp-2">
                   {task.title}
                 </Heading>
-                <p className="text-sm line-clamp-3 opacity-80">
+                <p className="text-sm line-clamp-3 opacity-60 mb-2">
                   {task.description}
                 </p>
                 <div className="flex flex-col gap-2 mb-2">
-                  <p className="text-xs opacity-80">
+                  <p className="text-xs opacity-60">
                     <span className="font-semibold">Assigned at:</span>
                     &nbsp;
                     {moment(task.assignedAt).format("DD MMMM YYYY")}
                   </p>
-                  <p className="text-xs opacity-80">
+                  <p className="text-xs opacity-60">
                     <span className="font-semibold">Deadline at:</span>
                     &nbsp;
                     {moment(task.deadlineAt).format("DD MMMM YYYY")}
                   </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 mb-4">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
                   <Badge
+                    size="xs"
                     level={
                       task.priority === "high"
                         ? `error`
@@ -59,14 +60,13 @@ const ModalListTask = () => {
                         ? `warning`
                         : `info`
                     }
-                    size="xs"
                     soft
                   >
                     {task.priority.charAt(0).toUpperCase() +
                       task.priority.slice(1)}{" "}
                     Priority
                   </Badge>
-                  <Badge level="primary" size="xs" soft>
+                  <Badge size="xs" level="primary" soft>
                     {task.type}
                   </Badge>
                 </div>

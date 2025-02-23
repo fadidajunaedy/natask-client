@@ -11,64 +11,23 @@ import Button from "../../common/Button";
 import Badge from "../../common/Bagde";
 import Avatar from "../../common/Avatar";
 import Heading from "../../common/Heading";
-import eventEmitter from "../../../utils/eventEmitter";
 
 const CardTask = ({ task }) => {
-  const [subtasks, setSubtasks] = useState([]);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const handleGetSubtask = async () => {
-      try {
-        const response = await getAllSubtask(
-          { taskId: task._id },
-          controller.signal
-        );
-        if (response.success) setSubtasks(response.data);
-      } catch (error) {
-        if (error.name === "AbortError") {
-          console.log("Fetch aborted");
-        } else {
-          console.log(error);
-        }
-      }
-    };
-    handleGetSubtask();
-    eventEmitter.on("subtaskChanged", handleGetSubtask);
-
-    return () => {
-      controller.abort();
-      eventEmitter.off("subtaskChanged", handleGetSubtask);
-    };
-  }, [task]);
-
-  const subtaskProgressPercentage = useMemo(() => {
-    const completedSubTasks = subtasks.filter(
-      (subtask) => subtask.status === "done"
-    ).length;
-    const percentage =
-      subtasks.length > 0 ? (completedSubTasks / subtasks.length) * 100 : 0;
-
-    return percentage;
-  }, [subtasks]);
-
   return (
     <>
-      <article className="flex flex-col gap-2 break-word bg-base-100 rounded-xl p-4">
+      <article className="animate-fade-up flex flex-col gap-2 break-word bg-base-100 rounded-xl p-4">
         <div className="flex items-center gap-2 mb-2">
           <Avatar
-            size="1.5em"
+            size="2em"
             src={task.employee.photo}
             alt={task.employee.name}
           />
-          <span className="text-sm font-semibold opacity-80">
+          <span className="text-xs sm:text-sm font-semibold opacity-80">
             {task.employee.name}
           </span>
         </div>
         <div className="grow flex flex-col gap-2">
-          <Heading level="h3" size="md" className="line-clamp-2">
+          <Heading level="h3" className="line-clamp-2">
             {task.title}
           </Heading>
           <p className="text-sm line-clamp-3 opacity-80">{task.description}</p>
@@ -86,6 +45,7 @@ const CardTask = ({ task }) => {
           </div>
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <Badge
+              size="xs"
               level={
                 task.priority === "high"
                   ? `error`
@@ -93,21 +53,15 @@ const CardTask = ({ task }) => {
                   ? `warning`
                   : `info`
               }
-              size="sm"
               soft
             >
               {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}{" "}
               Priority
             </Badge>
-            <Badge size="sm" level="primary" soft>
+            <Badge size="xs" level="primary" soft>
               {task.type}
             </Badge>
           </div>
-          {/* <progress
-            className="progress progress-lg progress-primary w-full mt-auto mb-2"
-            value={subtaskProgressPercentage}
-            max="100"
-          ></progress> */}
           <div className="flex justify-end items-center gap-2 mt-auto">
             <Button
               size="sm"
