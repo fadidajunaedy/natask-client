@@ -11,7 +11,7 @@ import { IoArrowBack } from "react-icons/io5";
 const AuthLayout = () => {
   return (
     <main className="w-full md:min-h-screen bg-base-100 grid grid-cols-1 md:grid-cols-2 p-4">
-      <fieldset className="w-full h-[calc(100vh-2rem)] bg-base-100 flex flex-col justify-center px-4 md:px-18 lg:px-36">
+      <fieldset className="w-full h-[calc(100vh-2rem)] bg-base-100 flex flex-col justify-center px-0 md:pr-4 lg:px-24">
         <Link to="/" className="link flex items-center gap-2 mb-8">
           <IoArrowBack /> Natask
         </Link>
@@ -36,7 +36,7 @@ const AuthLayout = () => {
           <p
             data-aos="fade-up"
             data-aos-delay="100"
-            className="text-lg md:text-2xl text-center text-base-100 opacity-80"
+            className="text-lg md:text-2xl text-center text-base-100/80 max-w-xl"
           >
             Easily manage and monitor your data with a clean and intuitive
             dashboard. Get real-time insights, track progress, and stay
